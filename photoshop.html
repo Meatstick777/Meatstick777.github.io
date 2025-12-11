@@ -6,14 +6,16 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
   <style>
+    body {
+      background-color: #f0f0f0;
+    }
     .custom-navbar {
       background-color: #2b2b2b;
     }
     .canvas-container {
       display: flex;
       justify-content: center;
-      margin-top: 20px;
-      margin-bottom: 20px;
+      margin: 20px 0;
     }
     .code-container {
       background-color: #f8f9fa;
@@ -21,9 +23,9 @@
       border-radius: 10px;
       max-width: 90%;
       margin: 0 auto 40px auto;
-      white-space: pre-wrap; /* preserves line breaks */
+      white-space: pre-wrap;
       font-family: monospace;
-      text-align: center; /* centers the code text */
+      text-align: center;
       overflow-x: auto;
     }
   </style>
@@ -52,12 +54,15 @@
   <h1 class="text-center my-4">DIY Photoshop</h1>
 
   <!-- Canvas -->
-  <div class="canvas-container">
-    <div id="canvas-holder"></div>
-  </div>
+  <div class="canvas-container" id="canvas-holder"></div>
 
   <!-- Code as text -->
-  <div class="code-container">
+  <div class="code-container" id="code-text"></div>
+
+</div>
+
+<script>
+/* ---------- Your Entire p5.js Code Starts Here ---------- */
 var img;
 var img2; 
 var initials = 'OP'; 
@@ -65,24 +70,11 @@ var choice = '1';
 var screenbg = 255; 
 var lastscreenshot = 61;
 
-// -----------------------------
-// Brush sizes for each tool
-// -----------------------------
 let brushSizes = {
-  "0": 50,
-  "1": 20,
-  "2": 20,
-  "3": 15,
-  "4": 20,
-  "5": 5,
-  "6": 25,
-  "7": 10,
-  "8": 20,
-  "9": 20,
-  "g": 50
+  "0": 50, "1": 20, "2": 20, "3": 15, "4": 20,
+  "5": 5, "6": 25, "7": 10, "8": 20, "9": 20, "g": 50
 };
 
-// Arrays for dripping, blow effects, and ripples
 let drippingDrops = [];
 let blowDrops = [];
 let energyRipples = [];
@@ -99,19 +91,14 @@ function setup() {
 }
 
 function draw() {
-
-  // Dripping updates
   for (let i = drippingDrops.length - 1; i >= 0; i--) {
     let d = drippingDrops[i];
     fill(d.color[0], d.color[1], d.color[2], d.alpha);
     noStroke();
     circle(d.x, d.y, d.size);
-    if (d.y < d.startY + d.maxDistance) {
-      d.y += d.speed;
-    }
+    if (d.y < d.startY + d.maxDistance) d.y += d.speed;
   }
 
-  // Blow updates
   for (let i = blowDrops.length - 1; i >= 0; i--) {
     let p = blowDrops[i];
     fill(p.color[0], p.color[1], p.color[2], p.alpha);
@@ -124,7 +111,6 @@ function draw() {
     if (p.alpha <= 0 || p.size <= 0.5) blowDrops.splice(i, 1);
   }
 
-  // Ripple updates
   for (let i = energyRipples.length - 1; i >= 0; i--) {
     let r = energyRipples[i];
     noFill();
@@ -144,12 +130,135 @@ function draw() {
   if (mouseIsPressed) newkeyChoice(choice);
 }
 
-// ... (rest of the code continues exactly as you provided)
-  </div>
+// Star Helper
+function drawStar(x, y, r1, r2, npoints) {
+  let angle = TWO_PI / npoints;
+  let halfAngle = angle / 2;
+  beginShape();
+  for (let a = 0; a < TWO_PI; a += angle) {
+    vertex(x + cos(a) * r2, y + sin(a) * r2);
+    vertex(x + cos(a + halfAngle) * r1, y + sin(a + halfAngle) * r1);
+  }
+  endShape(CLOSE);
+}
 
-</div>
-<script>
-  // Your full p5.js code should continue here, or you can include it as a separate JS file.
+let palettes = {
+  "0": [[0,255,255],[255,0,255],[255,255,0],[128,0,255]],
+  "1": [[255,0,0],[255,128,0],[255,255,0],[0,255,0],[0,255,255],[0,0,255],[128,0,255]],
+  "2": [[255,100,0],[255,150,50],[255,200,100]],
+  "3": [[50,100,255],[100,150,255],[150,200,255]],
+  "4": [[255,0,255],[255,128,255],[255,200,255]],
+  "5": [[255,255,0],[255,200,0],[255,150,0]],
+  "6": [[255,128,0],[255,200,0],[255,255,0]],
+  "7": [[0,255,128],[0,200,255],[0,150,255]],
+  "8": [[0,255,255],[0,200,200],[0,150,255]],
+  "9": [[255,50,200],[255,100,220],[255,150,240]]
+};
+
+function newkeyChoice(toolChoice) {
+  let size = brushSizes[toolChoice] || 10;
+  let palette = palettes[toolChoice] || [[255,255,255]];
+
+  if (toolChoice == '1') {
+    noStroke();
+    for (let i = 0; i < 40; i++) {
+      let c = random(palette);
+      fill(c[0], c[1], c[2], 120);
+      circle(mouseX + random(-size, size), mouseY + random(-size, size), random(3,6));
+    }
+  } else if (toolChoice == '2') {
+    noStroke();
+    if (frameCount % 2 === 0) {
+      for (let i = 0; i < 3; i++) {
+        let c = random(palette);
+        drippingDrops.push({
+          x: mouseX + random(-5,5),
+          y: mouseY + random(-5,5),
+          startY: mouseX,
+          size: random(1.5,size/4),
+          speed: random(0.5,1.2),
+          alpha: random(80,150),
+          maxDistance: random(10,25),
+          color: c
+        });
+      }
+    }
+  } else if (toolChoice == '3') {
+    for (let i = 0; i < 3; i++) {
+      let c = random(palette);
+      blowDrops.push({
+        x: mouseX, y: mouseY,
+        vx: random(-0.8,0.8), vy: random(-0.8,0.8),
+        size: random(1,size/2),
+        alpha: random(80,150),
+        color: c
+      });
+    }
+  } else if (toolChoice == '4') {
+    for (let i = 0; i < 4; i++) {
+      let angle = random(-PI/6, PI/6);
+      let len = random(size,size+15);
+      let thick = random(2,4);
+      let x2 = mouseX + cos(angle)*len;
+      let y2 = mouseY + sin(angle)*len;
+      let c = random(palette);
+      stroke(c[0],c[1],c[2],150);
+      strokeWeight(thick);
+      line(mouseX,mouseY,x2,y2);
+    }
+  } else if (toolChoice == '5') {
+    for (let i=0;i<18;i++){
+      let ox=random(-30,30), oy=random(-30,30), s=random(1.5,size), c=random(palette);
+      fill(c[0],c[1],c[2],random(80,180)); noStroke();
+      drawStar(mouseX+ox,mouseY+oy,s/2,s,5);
+    }
+  } else if (toolChoice == '6') {
+    for (let i=0;i<12;i++){
+      let px=mouseX+random(-10,10), py=mouseY+random(-10,10), sz=random(2,size), c=random(palette);
+      noStroke(); fill(c[0],c[1],c[2],150); circle(px,py,sz);
+    }
+  } else if (toolChoice=='7') {
+    for (let i=0;i<6;i++){
+      let bx=mouseX+random(-15,15), by=mouseY+random(-15,15), bsize=random(1,size), alpha=random(50,120), c=random(palette);
+      fill(c[0],c[1],c[2],alpha); noStroke(); circle(bx,by,bsize);
+    }
+  } else if (toolChoice=='8') {
+    for (let i=size;i>=1;i--){
+      let c=random(palette); stroke(c[0],c[1],c[2],50); strokeWeight(i*2);
+      line(pmouseX,pmouseY,mouseX,mouseY);
+    }
+  } else if (toolChoice=='9'){
+    let base=random(size,size+10);
+    for (let glow=3;glow>=1;glow--){
+      let c=random(palette); noFill(); stroke(c[0],c[1],c[2],120/glow); strokeWeight(glow*2);
+      circle(mouseX,mouseY,base+glow*5);
+    }
+  } else if (toolChoice=='0'){
+    for (let i=0;i<3;i++){
+      let c=random(palette); energyRipples.push({x:mouseX,y:mouseY,radius:random(5,15),color:c,alpha:150});
+    }
+  } else if (toolChoice=='g'||toolChoice=='G'){
+    image(img,mouseX,mouseY,50,50);
+  }
+}
+
+function clear_print(){
+  if(key=='x'||key=='X'){
+    clear(); background(screenbg);
+    drippingDrops=[]; blowDrops=[]; energyRipples=[];
+  } else if (key=='p'||key=='P'){ saveme(); }
+}
+
+function saveme(){
+  let filename=initials+day()+hour()+minute()+second();
+  if(second()!=lastscreenshot){ saveCanvas(filename,'jpg'); key=""; }
+  lastscreenshot=second();
+}
+/* ---------- Entire p5.js Code Ends Here ---------- */
+
+/* ---------- Show code as text below canvas ---------- */
+document.getElementById('code-text').innerText = `/* Paste your entire p5.js code here exactly as it is */`;
 </script>
+
 </body>
 </html>
