@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Self-Portrait</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+    .custom-navbar {
+      background-color: #2b2b2b; /* dark gray shade */
+    }
+
+    /* 1.5x bigger, centered image */
+    .net-art-img {
+      width: 120%;       /* 1.5× bigger than before */
+      max-width: 100%;   /* prevents overflowing */
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+<div class="container-fluid">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-sm navbar-dark custom-navbar">
+    <div class="container-fluid">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="portfolio.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="glitch.html">Glitch-Art</a></li>
+        <li class="nav-item"><a class="nav-link" href="mememashup.html">Meme-Mashup</a></li>
+        <li class="nav-item"><a class="nav-link" href="minecraft.html">Minecraft</a></li>
+        <li class="nav-item"><a class="nav-link" href="3dprint.html">3D-Print</a></li>
+        <li class="nav-item"><a class="nav-link" href="net_art.html">Net-Art</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Self-Portrait</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">DIY-Photoshop</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Mouse-Game</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <h1 class="text-center my-4">Self-Portait</h1>
+
+  <!-- Image Gallery -->
+  <div class="container">
+    <div class="row justify-content-center g-4">
+      <div class="col-md-6 d-flex justify-content-center">
+        <img src="self.jpg" class="net-art-img rounded" alt="myself self portrait">
+      </div>
+    </div>
+
+    <!-- Centered Text -->
+    <div class="mt-4">
+      <p class="text-center">
+
+      </p>function setup() {
+  createCanvas(600, 600);
+}
+
+function draw() {
+  background(102, 255, 204);
+
+  //face
+  fill(210, 180, 140);
+  ellipse(300, 300, 210, 245);
+
+  //ears
+  fill(210, 180, 140);
+  ellipse(195, 315, 29, 44);
+  ellipse(405, 315, 29, 44);
+
+  //lefteye
+  fill(255);
+  circle(260, 300, 30);
+  fill(0);
+  circle(260, 300, 19);
+
+  //righteye
+  fill(255);
+  circle(340, 300, 30);
+  fill(0);
+  circle(340, 300, 19);
+
+  // eyelids
+  fill(210, 180, 140);
+  arc(260, 300, 30, 30, PI, TWO_PI);
+  arc(340, 300, 30, 30, PI, TWO_PI);
+
+  //SMILE WITH TEETH
+  noStroke();
+
+  // top lip curve
+  fill(255);
+  arc(300, 360, 120, 90, 0, PI);
+
+  // teeth block
+  fill(300);
+  rect(250, 360, 100, 35, 30);
+
+  // tooth separator lines (more teeth)
+  stroke(0);
+  strokeWeight(2);
+  let startX = 250;
+  let endX = 350; // 250 + 100 width
+  let numLines = 5; // total lines across the teeth
+
+  for (let i = 1; i < numLines; i++) {
+    let x = startX + (i * (endX - startX) / numLines);
+    line(x, 360, x, 395); // match teeth height
+  }
+
+  noStroke();
+
+  // hair as a half-circle
+  fill(0); // hair color
+  arc(300, 295, 210, 260, PI, 0); 
+
+  //neck
+  fill(210, 180, 140);
+  rect(285, 420, 30, 50, 5); // neck with slight rounded edges
+
+  //body/torso
+  fill(100); // shirt/body
+  beginShape();
+  vertex(250, 470); // left shoulder
+  vertex(350, 470); // right shoulder
+  vertex(330, 600); // bottom right
+  vertex(270, 600); // bottom left
+  endShape(CLOSE);
+
+  //arms
+  fill(100);
+  beginShape();
+  vertex(250, 470); // left shoulder
+  vertex(220, 480); // elbow curve
+  vertex(230, 620); // wrist
+  vertex(250, 600); // armpit bottom
+  endShape(CLOSE);
+
+  beginShape();
+  vertex(350, 470); // right shoulder
+  vertex(380, 480); // elbow curve
+  vertex(370, 620); // wrist
+  vertex(350, 600); // armpit bottom
+  endShape(CLOSE);
+}
+    </div>
+	
+</div>
+</body>
+</html>
+
+
