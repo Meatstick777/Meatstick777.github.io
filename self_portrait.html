@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Self-Portrait Code</title>
+  <title>Self-Portrait</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -10,25 +10,27 @@
       background-color: #2b2b2b; /* dark gray shade */
     }
 
-    body, html {
-      height: 100%;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
+    /* Image styling */
+    .net-art-img {
+      width: 120%;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
     }
 
+    /* Code container */
     .code-container {
-      flex: 1; /* take remaining space */
       display: flex;
-      justify-content: center; /* horizontal center */
-      align-items: center;     /* vertical center */
-      background-color: #f8f9fa;
+      justify-content: center;
+      align-items: center;
+      margin-top: 40px;
       padding: 20px;
     }
 
     .code-text {
       max-width: 900px;
-      white-space: pre-wrap; /* keep line breaks */
+      white-space: pre-wrap;
       background-color: #2b2b2b;
       color: #f1f1f1;
       padding: 20px;
@@ -36,34 +38,47 @@
       overflow-x: auto;
       font-family: monospace;
       font-size: 14px;
+      text-align: left;
+    }
+
+    h1.description {
+      text-align: center;
+      margin-top: 30px;
+      margin-bottom: 20px;
     }
   </style>
 </head>
 <body>
+<div class="container-fluid">
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-sm navbar-dark custom-navbar">
-  <div class="container-fluid">
-    <ul class="navbar-nav">
-      <li class="nav-item"><a class="nav-link" href="portfolio.html">Home</a></li>
-      <li class="nav-item"><a class="nav-link" href="glitch.html">Glitch-Art</a></li>
-      <li class="nav-item"><a class="nav-link" href="mememashup.html">Meme-Mashup</a></li>
-      <li class="nav-item"><a class="nav-link" href="minecraft.html">Minecraft</a></li>
-      <li class="nav-item"><a class="nav-link" href="3dprint.html">3D-Print</a></li>
-      <li class="nav-item"><a class="nav-link" href="net_art.html">Net-Art</a></li>
-      <li class="nav-item"><a class="nav-link" href="self_portrait.html">Self-Portrait</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">DIY-Photoshop</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Mouse-Game</a></li>
-    </ul>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-sm navbar-dark custom-navbar">
+    <div class="container-fluid">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="portfolio.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="glitch.html">Glitch-Art</a></li>
+        <li class="nav-item"><a class="nav-link" href="mememashup.html">Meme-Mashup</a></li>
+        <li class="nav-item"><a class="nav-link" href="minecraft.html">Minecraft</a></li>
+        <li class="nav-item"><a class="nav-link" href="3dprint.html">3D-Print</a></li>
+        <li class="nav-item"><a class="nav-link" href="net_art.html">Net-Art</a></li>
+        <li class="nav-item"><a class="nav-link" href="self_portrait.html">Self-Portrait</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">DIY-Photoshop</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Mouse-Game</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Title -->
+  <h1 class="description">This is my Self-Portrait which I made using the Processing application.</h1>
+
+  <!-- Image -->
+  <div class="container text-center">
+    <img src="self.jpg" class="net-art-img rounded" alt="myself self portrait">
   </div>
-</nav>
 
-<!-- Page Title -->
-<h1 class="text-center my-4">Self-Portrait Code</h1>
-
-<!-- Centered Code -->
-<div class="code-container">
-  <div class="code-text">
+  <!-- Code text -->
+  <div class="code-container">
+    <div class="code-text">
 function setup() {<br>
 &nbsp;&nbsp;createCanvas(600, 600);<br>
 }<br><br>
@@ -90,70 +105,11 @@ function draw() {<br>
 &nbsp;&nbsp;fill(255);<br>
 &nbsp;&nbsp;circle(340, 300, 30);<br>
 &nbsp;&nbsp;fill(0);<br>
-&nbsp;&nbsp;circle(340, 300, 19);<br><br>
-
-&nbsp;&nbsp;// Eyelids<br>
-&nbsp;&nbsp;fill(210, 180, 140);<br>
-&nbsp;&nbsp;arc(260, 300, 30, 30, PI, TWO_PI);<br>
-&nbsp;&nbsp;arc(340, 300, 30, 30, PI, TWO_PI);<br><br>
-
-&nbsp;&nbsp;// Smile with teeth<br>
-&nbsp;&nbsp;noStroke();<br>
-&nbsp;&nbsp;fill(255);<br>
-&nbsp;&nbsp;arc(300, 360, 120, 90, 0, PI);<br><br>
-
-&nbsp;&nbsp;// Teeth block<br>
-&nbsp;&nbsp;fill(300);<br>
-&nbsp;&nbsp;rect(250, 360, 100, 35, 30);<br><br>
-
-&nbsp;&nbsp;// Tooth separator lines<br>
-&nbsp;&nbsp;stroke(0);<br>
-&nbsp;&nbsp;strokeWeight(2);<br>
-&nbsp;&nbsp;let startX = 250;<br>
-&nbsp;&nbsp;let endX = 350;<br>
-&nbsp;&nbsp;let numLines = 5;<br>
-&nbsp;&nbsp;for (let i = 1; i < numLines; i++) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;let x = startX + (i * (endX - startX) / numLines);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;line(x, 360, x, 395);<br>
-&nbsp;&nbsp;}<br><br>
-
-&nbsp;&nbsp;noStroke();<br><br>
-
-&nbsp;&nbsp;// Hair as a half-circle<br>
-&nbsp;&nbsp;fill(0);<br>
-&nbsp;&nbsp;arc(300, 295, 210, 260, PI, 0);<br><br>
-
-&nbsp;&nbsp;// Neck<br>
-&nbsp;&nbsp;fill(210, 180, 140);<br>
-&nbsp;&nbsp;rect(285, 420, 30, 50, 5);<br><br>
-
-&nbsp;&nbsp;// Body/torso<br>
-&nbsp;&nbsp;fill(100);<br>
-&nbsp;&nbsp;beginShape();<br>
-&nbsp;&nbsp;vertex(250, 470);<br>
-&nbsp;&nbsp;vertex(350, 470);<br>
-&nbsp;&nbsp;vertex(330, 600);<br>
-&nbsp;&nbsp;vertex(270, 600);<br>
-&nbsp;&nbsp;endShape(CLOSE);<br><br>
-
-&nbsp;&nbsp;// Arms<br>
-&nbsp;&nbsp;fill(100);<br>
-&nbsp;&nbsp;beginShape();<br>
-&nbsp;&nbsp;vertex(250, 470);<br>
-&nbsp;&nbsp;vertex(220, 480);<br>
-&nbsp;&nbsp;vertex(230, 620);<br>
-&nbsp;&nbsp;vertex(250, 600);<br>
-&nbsp;&nbsp;endShape(CLOSE);<br><br>
-
-&nbsp;&nbsp;beginShape();<br>
-&nbsp;&nbsp;vertex(350, 470);<br>
-&nbsp;&nbsp;vertex(380, 480);<br>
-&nbsp;&nbsp;vertex(370, 620);<br>
-&nbsp;&nbsp;vertex(350, 600);<br>
-&nbsp;&nbsp;endShape(CLOSE);<br>
+&nbsp;&nbsp;circle(340, 300, 19);<br>
 }
+    </div>
   </div>
-</div>
 
+</div>
 </body>
 </html>
