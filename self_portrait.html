@@ -1,168 +1,159 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Self-Portrait</title>
+  <title>Self-Portrait Code</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- p5.js -->
-  <script src="https://cdn.jsdelivr.net/npm/p5@1.7.0/lib/p5.min.js"></script>
 
   <style>
     .custom-navbar {
       background-color: #2b2b2b; /* dark gray shade */
     }
 
-    /* Center content */
-    .content-container {
+    body, html {
+      height: 100%;
+      margin: 0;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      margin-top: 50px; /* space at the top */
     }
 
-    .description {
-      text-align: center;
-      margin-bottom: 30px;
-      font-size: 1.2rem;
-      max-width: 800px;
+    .code-container {
+      flex: 1; /* take remaining space */
+      display: flex;
+      justify-content: center; /* horizontal center */
+      align-items: center;     /* vertical center */
+      background-color: #f8f9fa;
+      padding: 20px;
     }
 
-    /* Optional: style the canvas */
-    canvas {
+    .code-text {
+      max-width: 900px;
+      white-space: pre-wrap; /* keep line breaks */
+      background-color: #2b2b2b;
+      color: #f1f1f1;
+      padding: 20px;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      overflow-x: auto;
+      font-family: monospace;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
-<div class="container-fluid">
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-sm navbar-dark custom-navbar">
-    <div class="container-fluid">
-      <ul class="navbar-nav">
-        <li class="nav-item"><a class="nav-link" href="portfolio.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="glitch.html">Glitch-Art</a></li>
-        <li class="nav-item"><a class="nav-link" href="mememashup.html">Meme-Mashup</a></li>
-        <li class="nav-item"><a class="nav-link" href="minecraft.html">Minecraft</a></li>
-        <li class="nav-item"><a class="nav-link" href="3dprint.html">3D-Print</a></li>
-        <li class="nav-item"><a class="nav-link" href="net_art.html">Net-Art</a></li>
-        <li class="nav-item"><a class="nav-link" href="self_portrait.html">Self-Portrait</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">DIY-Photoshop</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Mouse-Game</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <!-- Page Title -->
-  <h1 class="text-center my-4">Self-Portrait</h1>
-
-  <!-- Description -->
-  <div class="content-container">
-    <p class="description">
-      This is my Self-Portrait which I made using the Processing application.
-    </p>
-
-    <!-- p5.js Canvas will appear here -->
-    <div id="sketch-container"></div>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-sm navbar-dark custom-navbar">
+  <div class="container-fluid">
+    <ul class="navbar-nav">
+      <li class="nav-item"><a class="nav-link" href="portfolio.html">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="glitch.html">Glitch-Art</a></li>
+      <li class="nav-item"><a class="nav-link" href="mememashup.html">Meme-Mashup</a></li>
+      <li class="nav-item"><a class="nav-link" href="minecraft.html">Minecraft</a></li>
+      <li class="nav-item"><a class="nav-link" href="3dprint.html">3D-Print</a></li>
+      <li class="nav-item"><a class="nav-link" href="net_art.html">Net-Art</a></li>
+      <li class="nav-item"><a class="nav-link" href="self_portrait.html">Self-Portrait</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">DIY-Photoshop</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">Mouse-Game</a></li>
+    </ul>
   </div>
+</nav>
 
+<!-- Page Title -->
+<h1 class="text-center my-4">Self-Portrait Code</h1>
+
+<!-- Centered Code -->
+<div class="code-container">
+  <div class="code-text">
+function setup() {<br>
+&nbsp;&nbsp;createCanvas(600, 600);<br>
+}<br><br>
+
+function draw() {<br>
+&nbsp;&nbsp;background(102, 255, 204);<br><br>
+
+&nbsp;&nbsp;// Face<br>
+&nbsp;&nbsp;fill(210, 180, 140);<br>
+&nbsp;&nbsp;ellipse(300, 300, 210, 245);<br><br>
+
+&nbsp;&nbsp;// Ears<br>
+&nbsp;&nbsp;fill(210, 180, 140);<br>
+&nbsp;&nbsp;ellipse(195, 315, 29, 44);<br>
+&nbsp;&nbsp;ellipse(405, 315, 29, 44);<br><br>
+
+&nbsp;&nbsp;// Left eye<br>
+&nbsp;&nbsp;fill(255);<br>
+&nbsp;&nbsp;circle(260, 300, 30);<br>
+&nbsp;&nbsp;fill(0);<br>
+&nbsp;&nbsp;circle(260, 300, 19);<br><br>
+
+&nbsp;&nbsp;// Right eye<br>
+&nbsp;&nbsp;fill(255);<br>
+&nbsp;&nbsp;circle(340, 300, 30);<br>
+&nbsp;&nbsp;fill(0);<br>
+&nbsp;&nbsp;circle(340, 300, 19);<br><br>
+
+&nbsp;&nbsp;// Eyelids<br>
+&nbsp;&nbsp;fill(210, 180, 140);<br>
+&nbsp;&nbsp;arc(260, 300, 30, 30, PI, TWO_PI);<br>
+&nbsp;&nbsp;arc(340, 300, 30, 30, PI, TWO_PI);<br><br>
+
+&nbsp;&nbsp;// Smile with teeth<br>
+&nbsp;&nbsp;noStroke();<br>
+&nbsp;&nbsp;fill(255);<br>
+&nbsp;&nbsp;arc(300, 360, 120, 90, 0, PI);<br><br>
+
+&nbsp;&nbsp;// Teeth block<br>
+&nbsp;&nbsp;fill(300);<br>
+&nbsp;&nbsp;rect(250, 360, 100, 35, 30);<br><br>
+
+&nbsp;&nbsp;// Tooth separator lines<br>
+&nbsp;&nbsp;stroke(0);<br>
+&nbsp;&nbsp;strokeWeight(2);<br>
+&nbsp;&nbsp;let startX = 250;<br>
+&nbsp;&nbsp;let endX = 350;<br>
+&nbsp;&nbsp;let numLines = 5;<br>
+&nbsp;&nbsp;for (let i = 1; i < numLines; i++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let x = startX + (i * (endX - startX) / numLines);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;line(x, 360, x, 395);<br>
+&nbsp;&nbsp;}<br><br>
+
+&nbsp;&nbsp;noStroke();<br><br>
+
+&nbsp;&nbsp;// Hair as a half-circle<br>
+&nbsp;&nbsp;fill(0);<br>
+&nbsp;&nbsp;arc(300, 295, 210, 260, PI, 0);<br><br>
+
+&nbsp;&nbsp;// Neck<br>
+&nbsp;&nbsp;fill(210, 180, 140);<br>
+&nbsp;&nbsp;rect(285, 420, 30, 50, 5);<br><br>
+
+&nbsp;&nbsp;// Body/torso<br>
+&nbsp;&nbsp;fill(100);<br>
+&nbsp;&nbsp;beginShape();<br>
+&nbsp;&nbsp;vertex(250, 470);<br>
+&nbsp;&nbsp;vertex(350, 470);<br>
+&nbsp;&nbsp;vertex(330, 600);<br>
+&nbsp;&nbsp;vertex(270, 600);<br>
+&nbsp;&nbsp;endShape(CLOSE);<br><br>
+
+&nbsp;&nbsp;// Arms<br>
+&nbsp;&nbsp;fill(100);<br>
+&nbsp;&nbsp;beginShape();<br>
+&nbsp;&nbsp;vertex(250, 470);<br>
+&nbsp;&nbsp;vertex(220, 480);<br>
+&nbsp;&nbsp;vertex(230, 620);<br>
+&nbsp;&nbsp;vertex(250, 600);<br>
+&nbsp;&nbsp;endShape(CLOSE);<br><br>
+
+&nbsp;&nbsp;beginShape();<br>
+&nbsp;&nbsp;vertex(350, 470);<br>
+&nbsp;&nbsp;vertex(380, 480);<br>
+&nbsp;&nbsp;vertex(370, 620);<br>
+&nbsp;&nbsp;vertex(350, 600);<br>
+&nbsp;&nbsp;endShape(CLOSE);<br>
+}
+  </div>
 </div>
-
-<!-- p5.js sketch -->
-<script>
-function setup() {
-  let canvas = createCanvas(600, 600);
-  canvas.parent('sketch-container'); // put canvas inside the div
-}
-
-function draw() {
-  background(102, 255, 204);
-
-  // Face
-  fill(210, 180, 140);
-  ellipse(300, 300, 210, 245);
-
-  // Ears
-  fill(210, 180, 140);
-  ellipse(195, 315, 29, 44);
-  ellipse(405, 315, 29, 44);
-
-  // Left eye
-  fill(255);
-  circle(260, 300, 30);
-  fill(0);
-  circle(260, 300, 19);
-
-  // Right eye
-  fill(255);
-  circle(340, 300, 30);
-  fill(0);
-  circle(340, 300, 19);
-
-  // Eyelids
-  fill(210, 180, 140);
-  arc(260, 300, 30, 30, PI, TWO_PI);
-  arc(340, 300, 30, 30, PI, TWO_PI);
-
-  // Smile with teeth
-  noStroke();
-  fill(255);
-  arc(300, 360, 120, 90, 0, PI); // top lip curve
-
-  // Teeth block
-  fill(300);
-  rect(250, 360, 100, 35, 30);
-
-  // Tooth separator lines
-  stroke(0);
-  strokeWeight(2);
-  let startX = 250;
-  let endX = 350; // 250 + 100 width
-  let numLines = 5;
-  for (let i = 1; i < numLines; i++) {
-    let x = startX + (i * (endX - startX) / numLines);
-    line(x, 360, x, 395);
-  }
-
-  noStroke();
-
-  // Hair as a half-circle
-  fill(0);
-  arc(300, 295, 210, 260, PI, 0); 
-
-  // Neck
-  fill(210, 180, 140);
-  rect(285, 420, 30, 50, 5);
-
-  // Body/torso
-  fill(100);
-  beginShape();
-  vertex(250, 470);
-  vertex(350, 470);
-  vertex(330, 600);
-  vertex(270, 600);
-  endShape(CLOSE);
-
-  // Arms
-  fill(100);
-  beginShape();
-  vertex(250, 470);
-  vertex(220, 480);
-  vertex(230, 620);
-  vertex(250, 600);
-  endShape(CLOSE);
-
-  beginShape();
-  vertex(350, 470);
-  vertex(380, 480);
-  vertex(370, 620);
-  vertex(350, 600);
-  endShape(CLOSE);
-}
-</script>
 
 </body>
 </html>
