@@ -69,7 +69,7 @@
     </div>
   </nav>
 
-  <!-- Page Title -->
+  <!-- Page Description -->
   <h1 class="description">This is my Self-Portrait which I made using the Processing application.</h1>
 
   <!-- Image -->
@@ -77,7 +77,7 @@
     <img src="self.jpg" class="net-art-img rounded" alt="myself self portrait">
   </div>
 
-  <!-- Code text -->
+  <!-- Full p5.js Code Text -->
   <div class="code-container">
     <div class="code-text">
 function setup() {<br>
@@ -106,7 +106,67 @@ function draw() {<br>
 &nbsp;&nbsp;fill(255);<br>
 &nbsp;&nbsp;circle(340, 300, 30);<br>
 &nbsp;&nbsp;fill(0);<br>
-&nbsp;&nbsp;circle(340, 300, 19);<br>
+&nbsp;&nbsp;circle(340, 300, 19);<br><br>
+
+&nbsp;&nbsp;// Eyelids<br>
+&nbsp;&nbsp;fill(210, 180, 140);<br>
+&nbsp;&nbsp;arc(260, 300, 30, 30, PI, TWO_PI);<br>
+&nbsp;&nbsp;arc(340, 300, 30, 30, PI, TWO_PI);<br><br>
+
+&nbsp;&nbsp;// Smile with teeth<br>
+&nbsp;&nbsp;noStroke();<br>
+&nbsp;&nbsp;fill(255);<br>
+&nbsp;&nbsp;arc(300, 360, 120, 90, 0, PI);<br><br>
+
+&nbsp;&nbsp;// Teeth block<br>
+&nbsp;&nbsp;fill(300);<br>
+&nbsp;&nbsp;rect(250, 360, 100, 35, 30);<br><br>
+
+&nbsp;&nbsp;// Tooth separator lines<br>
+&nbsp;&nbsp;stroke(0);<br>
+&nbsp;&nbsp;strokeWeight(2);<br>
+&nbsp;&nbsp;let startX = 250;<br>
+&nbsp;&nbsp;let endX = 350;<br>
+&nbsp;&nbsp;let numLines = 5;<br>
+&nbsp;&nbsp;for (let i = 1; i &lt; numLines; i++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;let x = startX + (i * (endX - startX) / numLines);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;line(x, 360, x, 395);<br>
+&nbsp;&nbsp;}<br><br>
+
+&nbsp;&nbsp;noStroke();<br><br>
+
+&nbsp;&nbsp;// Hair as a half-circle<br>
+&nbsp;&nbsp;fill(0);<br>
+&nbsp;&nbsp;arc(300, 295, 210, 260, PI, 0);<br><br>
+
+&nbsp;&nbsp;// Neck<br>
+&nbsp;&nbsp;fill(210, 180, 140);<br>
+&nbsp;&nbsp;rect(285, 420, 30, 50, 5);<br><br>
+
+&nbsp;&nbsp;// Body/torso<br>
+&nbsp;&nbsp;fill(100);<br>
+&nbsp;&nbsp;beginShape();<br>
+&nbsp;&nbsp;vertex(250, 470);<br>
+&nbsp;&nbsp;vertex(350, 470);<br>
+&nbsp;&nbsp;vertex(330, 600);<br>
+&nbsp;&nbsp;vertex(270, 600);<br>
+&nbsp;&nbsp;endShape(CLOSE);<br><br>
+
+&nbsp;&nbsp;// Arms<br>
+&nbsp;&nbsp;fill(100);<br>
+&nbsp;&nbsp;beginShape();<br>
+&nbsp;&nbsp;vertex(250, 470);<br>
+&nbsp;&nbsp;vertex(220, 480);<br>
+&nbsp;&nbsp;vertex(230, 620);<br>
+&nbsp;&nbsp;vertex(250, 600);<br>
+&nbsp;&nbsp;endShape(CLOSE);<br><br>
+
+&nbsp;&nbsp;beginShape();<br>
+&nbsp;&nbsp;vertex(350, 470);<br>
+&nbsp;&nbsp;vertex(380, 480);<br>
+&nbsp;&nbsp;vertex(370, 620);<br>
+&nbsp;&nbsp;vertex(350, 600);<br>
+&nbsp;&nbsp;endShape(CLOSE);<br>
 }
     </div>
   </div>
