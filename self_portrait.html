@@ -6,19 +6,33 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- p5.js -->
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.7.0/lib/p5.min.js"></script>
 
   <style>
     .custom-navbar {
       background-color: #2b2b2b; /* dark gray shade */
     }
 
-    /* 1.5x bigger, centered image */
-    .net-art-img {
-      width: 120%;       /* 1.5× bigger than before */
-      max-width: 100%;   /* prevents overflowing */
-      height: auto;
-      display: block;
-      margin: 0 auto;
+    /* Center content */
+    .content-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px; /* space at the top */
+    }
+
+    .description {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 1.2rem;
+      max-width: 800px;
+    }
+
+    /* Optional: style the canvas */
+    canvas {
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
   </style>
 </head>
@@ -35,122 +49,120 @@
         <li class="nav-item"><a class="nav-link" href="minecraft.html">Minecraft</a></li>
         <li class="nav-item"><a class="nav-link" href="3dprint.html">3D-Print</a></li>
         <li class="nav-item"><a class="nav-link" href="net_art.html">Net-Art</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Self-Portrait</a></li>
+        <li class="nav-item"><a class="nav-link" href="self_portrait.html">Self-Portrait</a></li>
         <li class="nav-item"><a class="nav-link" href="#">DIY-Photoshop</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Mouse-Game</a></li>
       </ul>
     </div>
   </nav>
 
-  <h1 class="text-center my-4">Self-Portait</h1>
+  <!-- Page Title -->
+  <h1 class="text-center my-4">Self-Portrait</h1>
 
-  <!-- Image Gallery -->
-  <div class="container">
-    <div class="row justify-content-center g-4">
-      <div class="col-md-6 d-flex justify-content-center">
-        <img src="self.jpg" class="net-art-img rounded" alt="myself self portrait">
-      </div>
-    </div>
+  <!-- Description -->
+  <div class="content-container">
+    <p class="description">
+      This is my Self-Portrait which I made using the Processing application.
+    </p>
 
-    <!-- Centered Text -->
-    <div class="mt-4">
-      <p class="text-center">
+    <!-- p5.js Canvas will appear here -->
+    <div id="sketch-container"></div>
+  </div>
 
-      </p>function setup() {
-  createCanvas(600, 600);
+</div>
+
+<!-- p5.js sketch -->
+<script>
+function setup() {
+  let canvas = createCanvas(600, 600);
+  canvas.parent('sketch-container'); // put canvas inside the div
 }
 
 function draw() {
   background(102, 255, 204);
 
-  //face
+  // Face
   fill(210, 180, 140);
   ellipse(300, 300, 210, 245);
 
-  //ears
+  // Ears
   fill(210, 180, 140);
   ellipse(195, 315, 29, 44);
   ellipse(405, 315, 29, 44);
 
-  //lefteye
+  // Left eye
   fill(255);
   circle(260, 300, 30);
   fill(0);
   circle(260, 300, 19);
 
-  //righteye
+  // Right eye
   fill(255);
   circle(340, 300, 30);
   fill(0);
   circle(340, 300, 19);
 
-  // eyelids
+  // Eyelids
   fill(210, 180, 140);
   arc(260, 300, 30, 30, PI, TWO_PI);
   arc(340, 300, 30, 30, PI, TWO_PI);
 
-  //SMILE WITH TEETH
+  // Smile with teeth
   noStroke();
-
-  // top lip curve
   fill(255);
-  arc(300, 360, 120, 90, 0, PI);
+  arc(300, 360, 120, 90, 0, PI); // top lip curve
 
-  // teeth block
+  // Teeth block
   fill(300);
   rect(250, 360, 100, 35, 30);
 
-  // tooth separator lines (more teeth)
+  // Tooth separator lines
   stroke(0);
   strokeWeight(2);
   let startX = 250;
   let endX = 350; // 250 + 100 width
-  let numLines = 5; // total lines across the teeth
-
+  let numLines = 5;
   for (let i = 1; i < numLines; i++) {
     let x = startX + (i * (endX - startX) / numLines);
-    line(x, 360, x, 395); // match teeth height
+    line(x, 360, x, 395);
   }
 
   noStroke();
 
-  // hair as a half-circle
-  fill(0); // hair color
+  // Hair as a half-circle
+  fill(0);
   arc(300, 295, 210, 260, PI, 0); 
 
-  //neck
+  // Neck
   fill(210, 180, 140);
-  rect(285, 420, 30, 50, 5); // neck with slight rounded edges
+  rect(285, 420, 30, 50, 5);
 
-  //body/torso
-  fill(100); // shirt/body
-  beginShape();
-  vertex(250, 470); // left shoulder
-  vertex(350, 470); // right shoulder
-  vertex(330, 600); // bottom right
-  vertex(270, 600); // bottom left
-  endShape(CLOSE);
-
-  //arms
+  // Body/torso
   fill(100);
   beginShape();
-  vertex(250, 470); // left shoulder
-  vertex(220, 480); // elbow curve
-  vertex(230, 620); // wrist
-  vertex(250, 600); // armpit bottom
+  vertex(250, 470);
+  vertex(350, 470);
+  vertex(330, 600);
+  vertex(270, 600);
+  endShape(CLOSE);
+
+  // Arms
+  fill(100);
+  beginShape();
+  vertex(250, 470);
+  vertex(220, 480);
+  vertex(230, 620);
+  vertex(250, 600);
   endShape(CLOSE);
 
   beginShape();
-  vertex(350, 470); // right shoulder
-  vertex(380, 480); // elbow curve
-  vertex(370, 620); // wrist
-  vertex(350, 600); // armpit bottom
+  vertex(350, 470);
+  vertex(380, 480);
+  vertex(370, 620);
+  vertex(350, 600);
   endShape(CLOSE);
 }
-    </div>
-	
-</div>
+</script>
+
 </body>
 </html>
-
-
