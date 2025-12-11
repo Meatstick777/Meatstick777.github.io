@@ -2,20 +2,30 @@
 <html>
 <head>
   <title>DIY Photoshop</title>
-  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.7.0/lib/p5.min.js"></script>
   <style>
     body {
       background-color: #f8f9fa;
-      padding-top: 20px;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    p {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 14px;
     }
 
     .code-label {
       text-align: center;
-      margin-top: 30px;
       font-size: 18px;
       font-weight: bold;
+      margin-top: 40px;
     }
 
     .code-container {
@@ -26,6 +36,7 @@
 
     .code-text {
       max-width: 900px;
+      width: 100%;
       white-space: pre-wrap;
       background-color: #2b2b2b;
       color: #f1f1f1;
@@ -34,19 +45,15 @@
       overflow-x: auto;
       font-family: monospace;
       font-size: 12px;
-      text-align: left;
     }
   </style>
 </head>
 <body>
 
-<div class="container">
+  <h1>DIY Photoshop p5.js</h1>
+  <p>Try the sketch below and scroll down to copy the full code.</p>
 
-  <h1 class="text-center">DIY Photoshop</h1>
-  <p class="text-center">This is my DIY Photoshop p5.js sketch that you can copy and run in your own editor.</p>
-
-  <!-- p5.js canvas -->
-  <script src="https://cdn.jsdelivr.net/npm/p5@1.7.0/lib/p5.min.js"></script>
+  <!-- p5.js canvas will run here -->
   <script>
 var img;
 var img2; 
@@ -225,6 +232,7 @@ function newkeyChoice(toolChoice) {
       let oy = random(-30,30);
       let s = random(1.5, size);
       let c = random(palette);
+      fill(c[0],c[1],c[2],random(80,180));
       noStroke();
       drawStar(mouseX+ox, mouseY+oy, s/2, s, 5);
     }
@@ -309,6 +317,7 @@ function saveme() {
   <div class="code-label">Here is the code</div>
   <div class="code-container">
     <pre class="code-text">
+<!-- Paste the ENTIRE same code here for copy-pasting -->
 var img;
 var img2; 
 var initials = 'OP'; 
@@ -316,24 +325,9 @@ var choice = '1';
 var screenbg = 255; 
 var lastscreenshot = 61;
 
-let brushSizes = {
-  "0": 50,
-  "1": 20,
-  "2": 20,
-  "3": 15,
-  "4": 20,
-  "5": 5,
-  "6": 25,
-  "7": 10,
-  "8": 20,
-  "9": 20,
-  "g": 50
-};
-
-// The rest of your p5.js code goes here exactly as above...
+// (rest of the full code as above)
     </pre>
   </div>
 
-</div>
 </body>
 </html>
