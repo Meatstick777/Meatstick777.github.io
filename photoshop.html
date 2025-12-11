@@ -2,11 +2,8 @@
 <html>
 <head>
   <title>DIY Photoshop</title>
-  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
   <style>
     .custom-navbar {
       background-color: #2b2b2b;
@@ -54,18 +51,25 @@
     </div>
   </nav>
 
-  <!-- Title -->
-  <h1 class="text-center mt-4" style="font-size: 20px;">This is my DIY Photoshop Canvas</h1>
+  <h1 class="text-center mt-4" style="font-size: 18px;">This is my DIY Photoshop Canvas</h1>
 
   <!-- Canvas -->
-  <div class="canvas-container">
-    <!-- p5.js canvas will appear here -->
-  </div>
+  <div class="canvas-container"></div>
 
   <!-- Copy-pastable code -->
   <div class="code-text">
     Here is the code:
     <pre>
+  // Paste your full p5.js DIY Photoshop code here
+  // Make sure to copy everything exactly as it is
+    </pre>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/p5@1.6.0/lib/p5.min.js"></script>
+<script>
+  // ====== BEGIN FULL P5.JS CODE ======
 var img;
 var img2; 
 var initials = 'OP'; 
@@ -73,9 +77,6 @@ var choice = '1';
 var screenbg = 255; 
 var lastscreenshot = 61;
 
-// -----------------------------
-// Brush sizes for each tool
-// -----------------------------
 let brushSizes = {
   "0": 50,
   "1": 20,
@@ -90,7 +91,6 @@ let brushSizes = {
   "g": 50
 };
 
-// Arrays for dripping, blow effects, and ripples
 let drippingDrops = [];
 let blowDrops = [];
 let energyRipples = [];
@@ -103,22 +103,54 @@ function preload() {
 function setup() {
   let cnv = createCanvas(600, 600);
   cnv.parent(document.querySelector('.canvas-container'));
-  cnv.id('drawCanvas'); // apply border + centering
+  cnv.id('drawCanvas');
   background(screenbg);
 }
 
-// (paste the rest of your p5.js code here exactly as you provided it)
-    </pre>
-  </div>
+function draw() {
+  // Dripping updates
+  for (let i = drippingDrops.length - 1; i >= 0; i--) {
+    let d = drippingDrops[i];
+    fill(d.color[0], d.color[1], d.color[2], d.alpha);
+    noStroke();
+    circle(d.x, d.y, d.size);
+    if (d.y < d.startY + d.maxDistance) d.y += d.speed;
+  }
 
-</div>
+  // Blow updates
+  for (let i = blowDrops.length - 1; i >= 0; i--) {
+    let p = blowDrops[i];
+    fill(p.color[0], p.color[1], p.color[2], p.alpha);
+    noStroke();
+    circle(p.x, p.y, p.size);
+    p.x += p.vx;
+    p.y += p.vy;
+    p.alpha -= 2;
+    p.size *= 0.98;
+    if (p.alpha <= 0 || p.size <= 0.5) blowDrops.splice(i, 1);
+  }
 
-<!-- p5.js -->
-<script src="https://cdn.jsdelivr.net/npm/p5@1.6.0/lib/p5.min.js"></script>
-<script>
-  // Paste your **entire p5.js DIY Photoshop code here**
-  // setup() already centers the canvas
+  // Ripple updates
+  for (let i = energyRipples.length - 1; i >= 0; i--) {
+    let r = energyRipples[i];
+    noFill();
+    stroke(r.color[0], r.color[1], r.color[2], r.alpha);
+    strokeWeight(2);
+    circle(r.x, r.y, r.radius * 2);
+    r.radius += 1;
+    r.alpha -= 3;
+    if (r.alpha <= 0) energyRipples.splice(i, 1);
+  }
+
+  if (keyIsPressed) {
+    if ("0123456789gG".includes(key)) choice = key;
+    clear_print();
+  }
+
+  if (mouseIsPressed) newkeyChoice(choice);
+}
+
+// (Paste all of your remaining p5.js brush code here exactly as it is)
 </script>
-
 </body>
 </html>
