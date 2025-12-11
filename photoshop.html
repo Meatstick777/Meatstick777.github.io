@@ -57,7 +57,7 @@
   </div>
 
   <!-- Code as text -->
-  <div class="code-container">
+  <div class="code-container" id="code-text">
 var img;
 var img2; 
 var initials = 'OP'; 
@@ -99,57 +99,90 @@ function setup() {
 }
 
 function draw() {
-
-  // Dripping updates
-  for (let i = drippingDrops.length - 1; i >= 0; i--) {
-    let d = drippingDrops[i];
-    fill(d.color[0], d.color[1], d.color[2], d.alpha);
-    noStroke();
-    circle(d.x, d.y, d.size);
-    if (d.y < d.startY + d.maxDistance) {
-      d.y += d.speed;
-    }
-  }
-
-  // Blow updates
-  for (let i = blowDrops.length - 1; i >= 0; i--) {
-    let p = blowDrops[i];
-    fill(p.color[0], p.color[1], p.color[2], p.alpha);
-    noStroke();
-    circle(p.x, p.y, p.size);
-    p.x += p.vx;
-    p.y += p.vy;
-    p.alpha -= 2;
-    p.size *= 0.98;
-    if (p.alpha <= 0 || p.size <= 0.5) blowDrops.splice(i, 1);
-  }
-
-  // Ripple updates
-  for (let i = energyRipples.length - 1; i >= 0; i--) {
-    let r = energyRipples[i];
-    noFill();
-    stroke(r.color[0], r.color[1], r.color[2], r.alpha);
-    strokeWeight(2);
-    circle(r.x, r.y, r.radius * 2);
-    r.radius += 1;
-    r.alpha -= 3;
-    if (r.alpha <= 0) energyRipples.splice(i, 1);
-  }
-
-  if (keyIsPressed) {
-    if ("0123456789gG".includes(key)) choice = key;
-    clear_print();
-  }
-
-  if (mouseIsPressed) newkeyChoice(choice);
+  // (Your full p5.js draw and brush logic continues here)
 }
-
-// ... (rest of the code continues exactly as you provided)
   </div>
 
 </div>
+
+<!-- p5.js Script -->
 <script>
-  // Your full p5.js code should continue here, or you can include it as a separate JS file.
+var img;
+var img2; 
+var initials = 'OP'; 
+var choice = '1'; 
+var screenbg = 255; 
+var lastscreenshot = 61;
+
+let brushSizes = {
+  "0": 50,
+  "1": 20,
+  "2": 20,
+  "3": 15,
+  "4": 20,
+  "5": 5,
+  "6": 25,
+  "7": 10,
+  "8": 20,
+  "9": 20,
+  "g": 50
+};
+
+let drippingDrops = [];
+let blowDrops = [];
+let energyRipples = [];
+
+function preload() {
+  img = loadImage('https://veryprofessional3d.github.io/images/cat3.jpg');
+  img2 = loadImage('https://veryprofessional3d.github.io/images/cat2.jpg');
+}
+
+function setup() {
+  let cnv = createCanvas(600, 600);
+  cnv.parent('canvas-holder'); // attach canvas to the container
+  background(screenbg);
+}
+
+function draw() {
+  // Dripping
+  for (let i = drippingDrops.length-1; i>=0; i--){
+    let d = drippingDrops[i];
+    fill(d.color[0],d.color[1],d.color[2],d.alpha);
+    noStroke();
+    circle(d.x,d.y,d.size);
+    if(d.y<d.startY+d.maxDistance) d.y+=d.speed;
+  }
+
+  // Blow
+  for (let i = blowDrops.length-1;i>=0;i--){
+    let p=blowDrops[i];
+    fill(p.color[0],p.color[1],p.color[2],p.alpha);
+    noStroke();
+    circle(p.x,p.y,p.size);
+    p.x+=p.vx; p.y+=p.vy;
+    p.alpha-=2; p.size*=0.98;
+    if(p.alpha<=0||p.size<=0.5) blowDrops.splice(i,1);
+  }
+
+  // Ripple
+  for(let i=energyRipples.length-1;i>=0;i--){
+    let r=energyRipples[i];
+    noFill();
+    stroke(r.color[0],r.color[1],r.color[2],r.alpha);
+    strokeWeight(2);
+    circle(r.x,r.y,r.radius*2);
+    r.radius+=1; r.alpha-=3;
+    if(r.alpha<=0) energyRipples.splice(i,1);
+  }
+
+  if(keyIsPressed){
+    if("0123456789gG".includes(key)) choice=key;
+    clear_print();
+  }
+  if(mouseIsPressed) newkeyChoice(choice);
+}
+
+// (Continue all your brush logic and other functions exactly as in your original code)
 </script>
 </body>
 </html>
