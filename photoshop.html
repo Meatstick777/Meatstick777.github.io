@@ -10,6 +10,28 @@
       background-color: #2b2b2b; /* dark gray shade */
     }
 
+    /* Page description */
+    h1.description {
+      text-align: center;
+      font-size: 20px; /* slightly smaller */
+      margin-top: 30px;
+      margin-bottom: 20px;
+    }
+
+    /* Button styling */
+    .btn-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    /* "Here is the code" text */
+    p.code-label {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
     /* Code container */
     .code-container {
       display: flex;
@@ -32,26 +54,11 @@
       text-align: left;
     }
 
-    /* Page description */
-    h1.description {
-      text-align: center;
-      font-size: 20px; /* slightly smaller */
-      margin-top: 30px;
-      margin-bottom: 20px;
-    }
-
-    /* Button styling */
-    .btn-container {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    /* "Here is the code" text */
-    p.code-label {
-      text-align: center;
-      margin-top: 30px;
-      font-size: 18px;
-      font-weight: bold;
+    /* Center the p5.js canvas */
+    #defaultCanvas0 {
+      display: block;
+      margin: 30px auto 0 auto;
+      border: 2px solid #2b2b2b;
     }
   </style>
 </head>
@@ -69,7 +76,7 @@
         <li class="nav-item"><a class="nav-link" href="3dprint.html">3D-Print</a></li>
         <li class="nav-item"><a class="nav-link" href="net_art.html">Net-Art</a></li>
         <li class="nav-item"><a class="nav-link" href="self_portrait.html">Self-Portrait</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">DIY-Photoshop</a></li>
+        <li class="nav-item"><a class="nav-link" href="https://meatstick777.github.io/diyphotoshop/" target="_blank">DIY-Photoshop</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Mouse-Game</a></li>
       </ul>
     </div>
@@ -85,100 +92,194 @@
     </a>
   </div>
 
+  <!-- p5.js Sketch -->
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.7.0/lib/p5.min.js"></script>
+  <script>
+var img;
+var img2; 
+var initials = 'OP'; 
+var choice = '1'; 
+var screenbg = 255; 
+var lastscreenshot = 61;
+
+// Brush sizes for each tool
+let brushSizes = {
+  "0": 50, "1": 20, "2": 20, "3": 15, "4": 20, "5": 5,
+  "6": 25, "7": 10, "8": 20, "9": 20, "g": 50
+};
+
+let drippingDrops = [];
+let blowDrops = [];
+let energyRipples = [];
+
+function preload() {
+  img = loadImage('https://veryprofessional3d.github.io/images/cat3.jpg');
+  img2 = loadImage('https://veryprofessional3d.github.io/images/cat2.jpg');
+}
+
+function setup() {
+  createCanvas(600, 600);
+  background(screenbg);
+}
+
+function draw() {
+  // Dripping updates
+  for (let i = drippingDrops.length - 1; i >= 0; i--) {
+    let d = drippingDrops[i];
+    fill(d.color[0], d.color[1], d.color[2], d.alpha);
+    noStroke();
+    circle(d.x, d.y, d.size);
+    if (d.y < d.startY + d.maxDistance) d.y += d.speed;
+  }
+
+  // Blow updates
+  for (let i = blowDrops.length - 1; i >= 0; i--) {
+    let p = blowDrops[i];
+    fill(p.color[0], p.color[1], p.color[2], p.alpha);
+    noStroke();
+    circle(p.x, p.y, p.size);
+    p.x += p.vx; p.y += p.vy;
+    p.alpha -= 2; p.size *= 0.98;
+    if (p.alpha <= 0 || p.size <= 0.5) blowDrops.splice(i, 1);
+  }
+
+  // Ripple updates
+  for (let i = energyRipples.length - 1; i >= 0; i--) {
+    let r = energyRipples[i];
+    noFill();
+    stroke(r.color[0], r.color[1], r.color[2], r.alpha);
+    strokeWeight(2);
+    circle(r.x, r.y, r.radius*2);
+    r.radius += 1;
+    r.alpha -= 3;
+    if (r.alpha <= 0) energyRipples.splice(i, 1);
+  }
+
+  if (keyIsPressed) if("0123456789gG".includes(key)) choice = key;
+
+  if(mouseIsPressed) newkeyChoice(choice);
+}
+
+function drawStar(x, y, r1, r2, npoints) {
+  let angle = TWO_PI / npoints;
+  let halfAngle = angle / 2;
+  beginShape();
+  for (let a = 0; a < TWO_PI; a += angle) {
+    vertex(x + cos(a)*r2, y + sin(a)*r2);
+    vertex(x + cos(a + halfAngle)*r1, y + sin(a + halfAngle)*r1);
+  }
+  endShape(CLOSE);
+}
+
+let palettes = {
+  "0":[[0,255,255],[255,0,255],[255,255,0],[128,0,255]],
+  "1":[[255,0,0],[255,128,0],[255,255,0],[0,255,0],[0,255,255],[0,0,255],[128,0,255]],
+  "2":[[255,100,0],[255,150,50],[255,200,100]],
+  "3":[[50,100,255],[100,150,255],[150,200,255]],
+  "4":[[255,0,255],[255,128,255],[255,200,255]],
+  "5":[[255,255,0],[255,200,0],[255,150,0]],
+  "6":[[255,128,0],[255,200,0],[255,255,0]],
+  "7":[[0,255,128],[0,200,255],[0,150,255]],
+  "8":[[0,255,255],[0,200,200],[0,150,255]],
+  "9":[[255,50,200],[255,100,220],[255,150,240]]
+};
+
+function newkeyChoice(toolChoice){
+  let size = brushSizes[toolChoice] || 10;
+  let palette = palettes[toolChoice] || [[255,255,255]];
+
+  if(toolChoice=='1'){
+    noStroke();
+    for(let i=0;i<40;i++){
+      let c=random(palette);
+      fill(c[0],c[1],c[2],120);
+      circle(mouseX+random(-size,size), mouseY+random(-size,size), random(3,6));
+    }
+  } else if(toolChoice=='2'){
+    noStroke();
+    if(frameCount%2===0) for(let i=0;i<3;i++){
+      let c=random(palette);
+      drippingDrops.push({x:mouseX+random(-5,5),y:mouseY+random(-5,5),startY:mouseX,size:random(1.5,size/4),speed:random(0.5,1.2),alpha:random(80,150),maxDistance:random(10,25),color:c});
+    }
+  } else if(toolChoice=='3'){
+    for(let i=0;i<3;i++){
+      let c=random(palette);
+      blowDrops.push({x:mouseX,y:mouseY,vx:random(-0.8,0.8),vy:random(-0.8,0.8),size:random(1,size/2),alpha:random(80,150),color:c});
+    }
+  } else if(toolChoice=='4'){
+    for(let i=0;i<4;i++){
+      let angle=random(-PI/6,PI/6);
+      let len=random(size,size+15);
+      let thick=random(2,4);
+      let x2=mouseX+cos(angle)*len;
+      let y2=mouseY+sin(angle)*len;
+      let c=random(palette);
+      stroke(c[0],c[1],c[2],150); strokeWeight(thick);
+      line(mouseX,mouseY,x2,y2);
+    }
+  } else if(toolChoice=='5'){
+    for(let i=0;i<18;i++){
+      let ox=random(-30,30); let oy=random(-30,30); let s=random(1.5,size);
+      let c=random(palette); noStroke();
+      drawStar(mouseX+ox, mouseY+oy, s/2, s, 5);
+    }
+  } else if(toolChoice=='6'){
+    for(let i=0;i<12;i++){
+      let px=mouseX+random(-10,10); let py=mouseY+random(-10,10); let sz=random(2,size);
+      let c=random(palette); noStroke(); fill(c[0],c[1],c[2],150);
+      circle(px,py,sz);
+    }
+  } else if(toolChoice=='7'){
+    for(let i=0;i<6;i++){
+      let bx=mouseX+random(-15,15); let by=mouseY+random(-15,15); let bsize=random(1,size);
+      let alpha=random(50,120); let c=random(palette); fill(c[0],c[1],c[2],alpha); noStroke();
+      circle(bx,by,bsize);
+    }
+  } else if(toolChoice=='8'){
+    for(let i=size;i>=1;i--){
+      let c=random(palette); stroke(c[0],c[1],c[2],50); strokeWeight(i*2);
+      line(pmouseX,pmouseY,mouseX,mouseY);
+    }
+  } else if(toolChoice=='9'){
+    let base=random(size,size+10);
+    for(let glow=3;glow>=1;glow--){
+      let c=random(palette); noFill(); stroke(c[0],c[1],c[2],120/glow); strokeWeight(glow*2);
+      circle(mouseX,mouseY,base+glow*5);
+    }
+  } else if(toolChoice=='0'){
+    for(let i=0;i<3;i++){
+      let c=random(palette);
+      energyRipples.push({x:mouseX,y:mouseY,radius:random(5,15),color:c,alpha:150});
+    }
+  } else if(toolChoice=='g'||toolChoice=='G'){
+    image(img,mouseX,mouseY,50,50);
+  }
+}
+
+function clear_print(){
+  if(key=='x'||key=='X'){
+    clear(); background(screenbg);
+    drippingDrops=[]; blowDrops=[]; energyRipples=[];
+  } else if(key=='p'||key=='P'){ saveme(); }
+}
+
+function saveme(){
+  let filename=initials+day()+hour()+minute()+second();
+  if(second()!=lastscreenshot){
+    saveCanvas(filename,'jpg'); key="";
+  }
+  lastscreenshot=second();
+}
+  </script>
+
   <!-- "Here is the code" label -->
   <p class="code-label">Here is the code</p>
 
-  <!-- Full p5.js Code Text -->
+  <!-- Full code in text container -->
   <div class="code-container">
     <div class="code-text">
-function setup() {<br>
-&nbsp;&nbsp;createCanvas(600, 600);<br>
-}<br><br>
-
-function draw() {<br>
-&nbsp;&nbsp;background(102, 255, 204);<br><br>
-
-&nbsp;&nbsp;// Face<br>
-&nbsp;&nbsp;fill(210, 180, 140);<br>
-&nbsp;&nbsp;ellipse(300, 300, 210, 245);<br><br>
-
-&nbsp;&nbsp;// Ears<br>
-&nbsp;&nbsp;fill(210, 180, 140);<br>
-&nbsp;&nbsp;ellipse(195, 315, 29, 44);<br>
-&nbsp;&nbsp;ellipse(405, 315, 29, 44);<br><br>
-
-&nbsp;&nbsp;// Left eye<br>
-&nbsp;&nbsp;fill(255);<br>
-&nbsp;&nbsp;circle(260, 300, 30);<br>
-&nbsp;&nbsp;fill(0);<br>
-&nbsp;&nbsp;circle(260, 300, 19);<br><br>
-
-&nbsp;&nbsp;// Right eye<br>
-&nbsp;&nbsp;fill(255);<br>
-&nbsp;&nbsp;circle(340, 300, 30);<br>
-&nbsp;&nbsp;fill(0);<br>
-&nbsp;&nbsp;circle(340, 300, 19);<br><br>
-
-&nbsp;&nbsp;// Eyelids<br>
-&nbsp;&nbsp;fill(210, 180, 140);<br>
-&nbsp;&nbsp;arc(260, 300, 30, 30, PI, TWO_PI);<br>
-&nbsp;&nbsp;arc(340, 300, 30, 30, PI, TWO_PI);<br><br>
-
-&nbsp;&nbsp;// Smile with teeth<br>
-&nbsp;&nbsp;noStroke();<br>
-&nbsp;&nbsp;fill(255);<br>
-&nbsp;&nbsp;arc(300, 360, 120, 90, 0, PI);<br><br>
-
-&nbsp;&nbsp;// Teeth block<br>
-&nbsp;&nbsp;fill(300);<br>
-&nbsp;&nbsp;rect(250, 360, 100, 35, 30);<br><br>
-
-&nbsp;&nbsp;// Tooth separator lines<br>
-&nbsp;&nbsp;stroke(0);<br>
-&nbsp;&nbsp;strokeWeight(2);<br>
-&nbsp;&nbsp;let startX = 250;<br>
-&nbsp;&nbsp;let endX = 350;<br>
-&nbsp;&nbsp;let numLines = 5;<br>
-&nbsp;&nbsp;for (let i = 1; i &lt; numLines; i++) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;let x = startX + (i * (endX - startX) / numLines);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;line(x, 360, x, 395);<br>
-&nbsp;&nbsp;}<br><br>
-
-&nbsp;&nbsp;noStroke();<br><br>
-
-&nbsp;&nbsp;// Hair as a half-circle<br>
-&nbsp;&nbsp;fill(0);<br>
-&nbsp;&nbsp;arc(300, 295, 210, 260, PI, 0);<br><br>
-
-&nbsp;&nbsp;// Neck<br>
-&nbsp;&nbsp;fill(210, 180, 140);<br>
-&nbsp;&nbsp;rect(285, 420, 30, 50, 5);<br><br>
-
-&nbsp;&nbsp;// Body/torso<br>
-&nbsp;&nbsp;fill(100);<br>
-&nbsp;&nbsp;beginShape();<br>
-&nbsp;&nbsp;vertex(250, 470);<br>
-&nbsp;&nbsp;vertex(350, 470);<br>
-&nbsp;&nbsp;vertex(330, 600);<br>
-&nbsp;&nbsp;vertex(270, 600);<br>
-&nbsp;&nbsp;endShape(CLOSE);<br><br>
-
-&nbsp;&nbsp;// Arms<br>
-&nbsp;&nbsp;fill(100);<br>
-&nbsp;&nbsp;beginShape();<br>
-&nbsp;&nbsp;vertex(250, 470);<br>
-&nbsp;&nbsp;vertex(220, 480);<br>
-&nbsp;&nbsp;vertex(230, 620);<br>
-&nbsp;&nbsp;vertex(250, 600);<br>
-&nbsp;&nbsp;endShape(CLOSE);<br><br>
-
-&nbsp;&nbsp;beginShape();<br>
-&nbsp;&nbsp;vertex(350, 470);<br>
-&nbsp;&nbsp;vertex(380, 480);<br>
-&nbsp;&nbsp;vertex(370, 620);<br>
-&nbsp;&nbsp;vertex(350, 600);<br>
-&nbsp;&nbsp;endShape(CLOSE);<br>
-}
+      <!-- You can paste the same p5.js code here for users to copy -->
+      (Paste your full p5.js code here)
     </div>
   </div>
 
