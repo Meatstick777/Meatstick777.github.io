@@ -9,24 +9,28 @@
 
   <style>
     .custom-navbar {
-      background-color: #2b2b2b; /* dark gray shade */
+      background-color: #2b2b2b;
     }
 
     .canvas-container {
-      text-align: center; /* center container */
+      text-align: center;
+      margin-top: 50px;
     }
 
     #drawCanvas {
-      border: 2px solid black; /* perimeter around drawing area */
+      border: 2px solid black;
       display: block;
-      margin: 50px auto; /* 50px top margin, horizontal centering */
+      margin: 0 auto;
     }
 
     .code-text {
       text-align: center;
-      margin-top: 20px;
+      margin-top: 30px;
       font-family: monospace;
       white-space: pre-wrap;
+      max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
     }
   </style>
 </head>
@@ -50,13 +54,15 @@
     </div>
   </nav>
 
-  <h1 class="text-center mt-4" style="font-size: 24px;">This is my DIY Photoshop Canvas</h1>
+  <!-- Title -->
+  <h1 class="text-center mt-4" style="font-size: 20px;">This is my DIY Photoshop Canvas</h1>
 
   <!-- Canvas -->
   <div class="canvas-container">
-    <!-- p5.js will place canvas here -->
+    <!-- p5.js canvas will appear here -->
   </div>
 
+  <!-- Copy-pastable code -->
   <div class="code-text">
     Here is the code:
     <pre>
@@ -67,10 +73,24 @@ var choice = '1';
 var screenbg = 255; 
 var lastscreenshot = 61;
 
-// Brush sizes
-let brushSizes = { ... }; // same as your full brushSizes object
+// -----------------------------
+// Brush sizes for each tool
+// -----------------------------
+let brushSizes = {
+  "0": 50,
+  "1": 20,
+  "2": 20,
+  "3": 15,
+  "4": 20,
+  "5": 5,
+  "6": 25,
+  "7": 10,
+  "8": 20,
+  "9": 20,
+  "g": 50
+};
 
-// Arrays
+// Arrays for dripping, blow effects, and ripples
 let drippingDrops = [];
 let blowDrops = [];
 let energyRipples = [];
@@ -81,13 +101,13 @@ function preload() {
 }
 
 function setup() {
-  let cnv = createCanvas(600,600);
+  let cnv = createCanvas(600, 600);
   cnv.parent(document.querySelector('.canvas-container'));
-  cnv.id('drawCanvas'); // apply CSS for border + centering
+  cnv.id('drawCanvas'); // apply border + centering
   background(screenbg);
 }
 
-// All brush logic and draw function as in your full code...
+// (paste the rest of your p5.js code here exactly as you provided it)
     </pre>
   </div>
 
@@ -96,9 +116,8 @@ function setup() {
 <!-- p5.js -->
 <script src="https://cdn.jsdelivr.net/npm/p5@1.6.0/lib/p5.min.js"></script>
 <script>
-// Paste your full p5.js code here from your DIY Photoshop
-// Make sure to include draw(), newkeyChoice(), clear_print(), saveme(), palettes, etc.
-// setup() is already updated to center canvas
+  // Paste your **entire p5.js DIY Photoshop code here**
+  // setup() already centers the canvas
 </script>
 
 </body>
