@@ -2,8 +2,10 @@
 <html>
 <head>
   <title>Final Project</title>
+
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -12,8 +14,16 @@
     .custom-navbar {
       background-color: #2b2b2b; /* dark gray shade */
     }
+
+    /* Make all images the same size */
+    .equal-img {
+      height: 300px;       /* adjust if you want bigger/smaller */
+      width: 100%;         
+      object-fit: cover;   /* keeps images looking good */
+    }
   </style>
 </head>
+
 <body>
 <div class="container-fluid">
 
@@ -38,13 +48,37 @@
   <h1 class="text-center my-4">Final Project</h1>
 
   <!-- Image Gallery -->
-  <div class="text-center">
-    <img src="fighter2.jpg" class="img-fluid rounded" alt="normal fighter">
-	<img src="finalproject2.jpg" class="img-fluid rounded" alt="first glitch fighter">
-	<img src="finalproject1.jpg" class="img-fluid rounded" alt="inverted fighter"
-	
+  <div class="container text-center my-4">
+    <div class="row justify-content-center">
+
+      <div class="col-md-4">
+        <img src="fighter2.jpg" class="img-fluid rounded equal-img" alt="normal fighter">
+      </div>
+
+      <div class="col-md-4">
+        <img src="finalproject2.jpg" class="img-fluid rounded equal-img" alt="first glitch fighter">
+      </div>
+
+      <div class="col-md-4">
+        <img src="finalproject1.jpg" class="img-fluid rounded equal-img" alt="inverted fighter">
+      </div>
+
+    </div>
+
     <div class="mt-4">
-      <p>The series of images is from 2 different anime, Jojo's Bizarre Adventure and One Piece. I chose these specific characters because their abilities revolve around breaking the reality around them. In the first image, we have Giorno standing with his stand ability in which breaks cause and effect. In the second image (my personal favorite), we have another JoJo character named Josuke. His stand ability is called Soft and Wet. Its ability is to take things away, such as sound, water, and even friction, from whatever it touches. This is my favorite image because the glitch is everywhere except the stand itself. For the final image, we have Luffy from One Piece, when using his 5th gear, everything around him becomes a Tom and Jerry-style cartoon and bouncy, breaking reality. The meaning of these glitches was to show how power scaling in animes breaks how the fundamental reality in their worlds.</p>
+      <p>
+        The series of images is from 2 different anime, Jojo's Bizarre Adventure and One Piece.
+        I chose these specific characters because their abilities revolve around breaking
+        the reality around them. In the first image, we have Giorno standing with his stand
+        ability in which breaks cause and effect. In the second image (my personal favorite),
+        we have another JoJo character named Josuke. His stand ability is called Soft and Wet.
+        Its ability is to take things away, such as sound, water, and even friction, from
+        whatever it touches. This is my favorite image because the glitch is everywhere except
+        the stand itself. For the final image, we have Luffy from One Piece, when using his
+        5th gear, everything around him becomes a Tom and Jerry-style cartoon and bouncy,
+        breaking reality. The meaning of these glitches was to show how power scaling in
+        animes breaks how the fundamental reality in their worlds.
+      </p>
     </div>
   </div>
 
