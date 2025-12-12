@@ -72,386 +72,387 @@
 </div>
 
 <p class="text-center"> 
-// ----------------------------
-// Global Variables
-// ----------------------------
-var ghostSize = 40;
-var score = 0;
-var level = 1;
-let gameState = "intro"; // "intro", "playing", "win"
+Code below: <br>
+// ---------------------------- <br>
+// Global Variables <br>
+// ---------------------------- <br>
+var ghostSize = 40; <br>
+var score = 0; <br>
+var level = 1; <br>
+let gameState = "intro"; // "intro", "playing", "win" <br>
 
-// Mouth animation
-let mouthAngle = 45;
-let mouthSpeed = 2;
+// Mouth animation <br>
+let mouthAngle = 45; <br>
+let mouthSpeed = 2; <br>
 
-// Ghost Colors (same in all levels)
+// Ghost Colors (same in all levels) <br>
 let ghostColors = [
-  [255, 0, 0],       // Red ghost (chase)
-  [0, 0, 255],       // Blue ghost (vulnerable)
-  [255, 184, 255],   // Pink ghost (vulnerable)
-  [255, 184, 82]     // Orange ghost (vulnerable)
-];
+  [255, 0, 0],       // Red ghost (chase) <br>
+  [0, 0, 255],       // Blue ghost (vulnerable) <br>
+  [255, 184, 255],   // Pink ghost (vulnerable) <br>
+  [255, 184, 82]     // Orange ghost (vulnerable) <br>
+]; <br>
 
-// ------------ GHOST SYSTEM --------------
-let ghosts = []; // Will be initialized per level
+// ------------ GHOST SYSTEM -------------- <br>
+let ghosts = []; // Will be initialized per level <br>
 
-// ----------------------------
-// Setup
-// ----------------------------
-function setup() {
-  createCanvas(600, 600);
-  textAlign(CENTER);
-  textSize(20);
-  noCursor();
-}
+// ---------------------------- <br>
+// Setup <br>
+// ---------------------------- <br>
+function setup() { <br>
+  createCanvas(600, 600); <br>
+  textAlign(CENTER); <br>
+  textSize(20); <br>
+  noCursor(); <br>
+} <br>
 
-// ----------------------------
-// Draw Loop
-// ----------------------------
-function draw() {
-  if (gameState === "intro") {
-    drawIntroScreen();
-  } else if (gameState === "playing") {
-    // Draw background per level with unique wall colors
-    if (level === 1) drawBackground(color(0, 0, 255));      // blue lines
-    if (level === 2) drawBackground(color(255, 0, 0));      // red lines
-    if (level === 3) drawBackground(color(0, 255, 255));    // cyan lines
-    if (level === 4) drawBackground(color(255, 255, 0));    // yellow lines
+// ---------------------------- <br>
+// Draw Loop <br>
+// ---------------------------- <br>
+function draw() { <br>
+  if (gameState === "intro") { <br>
+    drawIntroScreen(); <br>
+  } else if (gameState === "playing") { <br>
+    // Draw background per level with unique wall colors <br>
+    if (level === 1) drawBackground(color(0, 0, 255));      // blue lines <br>
+    if (level === 2) drawBackground(color(255, 0, 0));      // red lines <br> 
+    if (level === 3) drawBackground(color(0, 255, 255));    // cyan lines <br>
+    if (level === 4) drawBackground(color(255, 255, 0));    // yellow lines <br>
 
-    // draw levels
-    if (level === 1) levelOne();
-    else if (level === 2) levelTwo();
-    else if (level === 3) levelThree();
-    else if (level === 4) levelFour();
+    // draw levels <br>
+    if (level === 1) levelOne(); <br>
+    else if (level === 2) levelTwo(); <br>
+    else if (level === 3) levelThree(); <br>
+    else if (level === 4) levelFour(); <br>
 
-    fill(255);
-    text("Score: " + score, width / 2, 40);
+    fill(255); <br>
+    text("Score: " + score, width / 2, 40); <br>
 
-    drawPacman(mouseX, mouseY, 40);
-    animateMouth();
-  } else if (gameState === "win") {
-    drawWinScreen();
-  }
-}
+    drawPacman(mouseX, mouseY, 40); <br>
+    animateMouth(); <br> 
+  } else if (gameState === "win") { <br>
+    drawWinScreen(); <br>
+  } <br>
+} <br>
+ 
+// ---------------------------- <br>
+// INTRO SCREEN <br>
+// ---------------------------- <br>
+function drawIntroScreen() { <br>
+  background(0); <br>
+  fill(255, 255, 0); <br> 
+  textSize(48); <br>
+  text("PAC-MAN MOUSE GAME", width / 2, height / 2 - 100); <br>
 
-// ----------------------------
-// INTRO SCREEN
-// ----------------------------
-function drawIntroScreen() {
-  background(0);
-  fill(255, 255, 0);
-  textSize(48);
-  text("PAC-MAN MOUSE GAME", width / 2, height / 2 - 100);
+  textSize(20); <br>
+  fill(255); <br>
+  text("Rules:", width / 2, height / 2 - 40); <br>
+  text("1. Eat the blue ghosts to gain points.", width / 2, height / 2 - 10); <br>
+  text("2. Avoid red ghosts—they deduct points.", width / 2, height / 2 + 20); <br>
+  text("3. Reach 100 points to win.", width / 2, height / 2 + 50); <br>
+  text("Press ENTER or click to start!", width / 2, height / 2 + 100); <br>
+} <br>
 
-  textSize(20);
-  fill(255);
-  text("Rules:", width / 2, height / 2 - 40);
-  text("1. Eat the blue ghosts to gain points.", width / 2, height / 2 - 10);
-  text("2. Avoid red ghosts—they deduct points.", width / 2, height / 2 + 20);
-  text("3. Reach 100 points to win.", width / 2, height / 2 + 50);
-  text("Press ENTER or click to start!", width / 2, height / 2 + 100);
-}
+// ---------------------------- <br>
+// WIN SCREEN <br>
+// ---------------------------- <br>
+function drawWinScreen() { <br>
+  background(0); <br>
+  fill(255, 255, 0); <br>
+  textSize(48); <br>
+  text("YOU WIN!", width / 2, height / 2); <br>
+  textSize(24); <br>
+  fill(255); <br>
+  text("Refresh the page to play again.", width / 2, height / 2 + 50); <br>
+} <br>
 
-// ----------------------------
-// WIN SCREEN
-// ----------------------------
-function drawWinScreen() {
-  background(0);
-  fill(255, 255, 0);
-  textSize(48);
-  text("YOU WIN!", width / 2, height / 2);
-  textSize(24);
-  fill(255);
-  text("Refresh the page to play again.", width / 2, height / 2 + 50);
-}
+// ---------------------------- <br>
+// KEY PRESS <br> 
+// ---------------------------- <br>
+function keyPressed() { <br>
+  if (gameState === "intro" && key === 'Enter') { <br>
+    startGame(); <br>
+  } <br>
+} <br>
 
-// ----------------------------
-// KEY PRESS
-// ----------------------------
-function keyPressed() {
-  if (gameState === "intro" && key === 'Enter') {
-    startGame();
-  }
-}
+// ---------------------------- <br>
+// MOUSE CLICK <br>
+// ---------------------------- <br>
+function mousePressed() { <br>
+  if (gameState === "intro") { <br>
+    startGame(); <br>
+  } <br> 
+} <br>
 
-// ----------------------------
-// MOUSE CLICK
-// ----------------------------
-function mousePressed() {
-  if (gameState === "intro") {
-    startGame();
-  }
-}
+// ---------------------------- <br>
+// START GAME FUNCTION <br>
+// ---------------------------- <br>
+function startGame() { <br>
+  gameState = "playing"; <br>
+  level = 1; <br>
+  score = 0; <br>
+  setupLevelOne(); <br>
+} <br>
 
-// ----------------------------
-// START GAME FUNCTION
-// ----------------------------
-function startGame() {
-  gameState = "playing";
-  level = 1;
-  score = 0;
-  setupLevelOne();
-}
+// ---------------------------- <br>
+// LEVEL SETUPS <br>
+// ----------------------------<br>
+function setupLevelOne() { <br>
+  ghosts = [ <br>
+    { x: 150, y: 150, speed: 1.3, colorIndex: 1, type: "vulnerable", speedX: 1.3, speedY: 1.3 }, <br>
+    { x: 450, y: 450, speed: 1.0, colorIndex: 1, type: "vulnerable", speedX: 1.0, speedY: 1.0 } <br>
+  ]; <br>
+} <br>
 
-// ----------------------------
-// LEVEL SETUPS
-// ----------------------------
-function setupLevelOne() {
-  ghosts = [
-    { x: 150, y: 150, speed: 1.3, colorIndex: 1, type: "vulnerable", speedX: 1.3, speedY: 1.3 },
-    { x: 450, y: 450, speed: 1.0, colorIndex: 1, type: "vulnerable", speedX: 1.0, speedY: 1.0 }
-  ];
-}
+function setupLevelTwo() { <br>
+  ghosts = [ <br>
+    { x: 150, y: 150, speed: 1.8, colorIndex: 1, type: "vulnerable", speedX: 1.8, speedY: 1.8 }, <br>
+    { x: 450, y: 450, speed: 2.5, colorIndex: 0, type: "chase" } <br> 
+  ]; <br>
+} <br>
 
-function setupLevelTwo() {
-  ghosts = [
-    { x: 150, y: 150, speed: 1.8, colorIndex: 1, type: "vulnerable", speedX: 1.8, speedY: 1.8 },
-    { x: 450, y: 450, speed: 2.5, colorIndex: 0, type: "chase" }
-  ];
-}
+function setupLevelThree() { <br>
+  ghosts = [ <br>
+    { x: 100, y: 100, speed: 3.0, colorIndex: 0, type: "chase" }, <br>
+    { x: 500, y: 100, speed: 1.8, colorIndex: 1, type: "vulnerable", speedX: 1.8, speedY: 1.8 }, <br>
+    { x: 100, y: 500, speed: 1.8, colorIndex: 1, type: "vulnerable", speedX: 1.8, speedY: 1.8 }, <br>
+    { x: 500, y: 500, speed: 1.8, colorIndex: 1, type: "vulnerable", speedX: 1.8, speedY: 1.8 } <br>
+  ]; <br>
+} <br>
 
-function setupLevelThree() {
-  ghosts = [
-    { x: 100, y: 100, speed: 3.0, colorIndex: 0, type: "chase" },
-    { x: 500, y: 100, speed: 1.8, colorIndex: 1, type: "vulnerable", speedX: 1.8, speedY: 1.8 },
-    { x: 100, y: 500, speed: 1.8, colorIndex: 1, type: "vulnerable", speedX: 1.8, speedY: 1.8 },
-    { x: 500, y: 500, speed: 1.8, colorIndex: 1, type: "vulnerable", speedX: 1.8, speedY: 1.8 }
-  ];
-}
+function setupLevelFour() { <br>
+  ghosts = [ <br>
+    { x: 100, y: 100, speed: 3.0, colorIndex: 0, type: "chase" }, <br>
+    { x: 500, y: 100, speed: 3.0, colorIndex: 0, type: "chase" }, <br>
+    { x: 100, y: 500, speed: 3.0, colorIndex: 0, type: "chase" }, <br>
+    { x: 500, y: 500, speed: 2.5, colorIndex: 1, type: "vulnerable", speedX: 2.5, speedY: 2.5 } <br>
+  ]; <br>
+} <br>
 
-function setupLevelFour() {
-  ghosts = [
-    { x: 100, y: 100, speed: 3.0, colorIndex: 0, type: "chase" },
-    { x: 500, y: 100, speed: 3.0, colorIndex: 0, type: "chase" },
-    { x: 100, y: 500, speed: 3.0, colorIndex: 0, type: "chase" },
-    { x: 500, y: 500, speed: 2.5, colorIndex: 1, type: "vulnerable", speedX: 2.5, speedY: 2.5 }
-  ];
-}
+// ---------------------------- <br>
+// LEVEL FUNCTIONS <br>
+// ---------------------------- <br>
+function levelOne() { <br>
+  fill(255); <br>
+  text("LEVEL 1", width / 2, height - 20); <br>
+  textSize(16); <br>
+  fill(0, 255, 0); <br>
+  text("All ghosts are harmless, so eat them all for now...", width / 2, height - 50); <br>
 
-// ----------------------------
-// LEVEL FUNCTIONS
-// ----------------------------
-function levelOne() {
-  fill(255);
-  text("LEVEL 1", width / 2, height - 20);
-  textSize(16);
-  fill(0, 255, 0);
-  text("All ghosts are harmless, so eat them all for now...", width / 2, height - 50);
+  handleGhosts(); <br>
 
-  handleGhosts();
+  if (score >= 25) { <br>
+    level = 2; <br>
+    setupLevelTwo(); <br>
+  } <br>
+} <br>
+ 
+function levelTwo() { <br>
+  fill(255); <br>
+  text("LEVEL 2", width / 2, height - 20); <br>
+  textSize(16); <br>
+  fill(255, 0, 0); <br>
+  text("Red ghosts now chase you!", width / 2, height - 50); <br>
 
-  if (score >= 25) {
-    level = 2;
-    setupLevelTwo();
-  }
-}
+  handleGhosts(); <br>
 
-function levelTwo() {
-  fill(255);
-  text("LEVEL 2", width / 2, height - 20);
-  textSize(16);
-  fill(255, 0, 0);
-  text("Red ghosts now chase you!", width / 2, height - 50);
-
-  handleGhosts();
-
-  if (score >= 50) {
+  if (score >= 50) { <br>
     level = 3;
-    setupLevelThree();
-  }
-}
+    setupLevelThree(); <br>
+  } <br>
+} <br>
+ 
+function levelThree() { <br>
+  fill(255); <br>
+  text("LEVEL 3", width / 2, height - 20); <br>
+  textSize(16); <br>
+  fill(255, 0, 0); <br>
+  text("Red ghost is faster now! Eat blue ghosts carefully.", width / 2, height - 50); <br>
 
-function levelThree() {
-  fill(255);
-  text("LEVEL 3", width / 2, height - 20);
-  textSize(16);
-  fill(255, 0, 0);
-  text("Red ghost is faster now! Eat blue ghosts carefully.", width / 2, height - 50);
+  handleGhosts(); <br>
 
-  handleGhosts();
+  if (score >= 75) { <br>
+    level = 4; <br>
+    setupLevelFour(); <br>
+  } <br>
+} <br>
 
-  if (score >= 75) {
-    level = 4;
-    setupLevelFour();
-  }
-}
+function levelFour() { <br>
+  fill(255); <br>
+  text("LEVEL 4", width / 2, height - 20); <br>
+  textSize(16); <br>
+  fill(255, 0, 0); <br>
+  text("Three red ghosts! Be careful and catch the blue one!", width / 2, height - 50); <br>
 
-function levelFour() {
-  fill(255);
-  text("LEVEL 4", width / 2, height - 20);
-  textSize(16);
-  fill(255, 0, 0);
-  text("Three red ghosts! Be careful and catch the blue one!", width / 2, height - 50);
+  handleGhosts(); <br>
 
-  handleGhosts();
+  if (score >= 100) { <br>
+    gameState = "win"; <br>
+  } <br>
+} <br>
 
-  if (score >= 100) {
-    gameState = "win";
-  }
-}
+// ---------------------------- <br>
+// HANDLE GHOSTS & COLLISIONS <br>
+// ---------------------------- <br>
+function handleGhosts() { <br>
+  for (let g of ghosts) { <br>
+    moveGhost(g); <br>
+    drawGhost(g.x, g.y, ghostSize, g.colorIndex); <br>
 
-// ----------------------------
-// HANDLE GHOSTS & COLLISIONS
-// ----------------------------
-function handleGhosts() {
-  for (let g of ghosts) {
-    moveGhost(g);
-    drawGhost(g.x, g.y, ghostSize, g.colorIndex);
-
-    let d = dist(g.x, g.y, mouseX, mouseY);
-    if (g.type === "vulnerable" && d < ghostSize / 2) {
-      score++;
-      g.x = random(60, width - 60);
-      g.y = random(60, height - 60);
+    let d = dist(g.x, g.y, mouseX, mouseY); <br>
+    if (g.type === "vulnerable" && d < ghostSize / 2) { <br>
+      score++; <br>
+      g.x = random(60, width - 60);<br>
+      g.y = random(60, height - 60); <br>
     }
-    if (g.type === "chase" && d < ghostSize / 2) {
-      score = max(0, score - 1);
-      g.x = random(60, width - 60);
-      g.y = random(60, height - 60);
-    }
+    if (g.type === "chase" && d < ghostSize / 2) { <br>
+      score = max(0, score - 1); <br>
+      g.x = random(60, width - 60); <br>
+      g.y = random(60, height - 60); <br>
+    } <br>
+  } <br>
+
+  // Continuously prevent ghosts from overlapping <br>
+  separateGhosts(); <br>
+} <br>
+
+// ---------------------------- <br>
+// SEPARATE GHOSTS (to avoid stacking) <br>
+function separateGhosts() { <br>
+  for (let i = 0; i < ghosts.length; i++) { <br>
+    for (let j = i + 1; j < ghosts.length; j++) { <br>
+      let dx = ghosts[j].x - ghosts[i].x; <br>
+      let dy = ghosts[j].y - ghosts[i].y; <br>
+      let distance = sqrt(dx * dx + dy * dy); <br>
+      if (distance < ghostSize) { <br>
+        let angle = atan2(dy, dx); <br>
+        let move = (ghostSize - distance) / 2 + 1; <br>
+        ghosts[i].x -= cos(angle) * move; <br>
+        ghosts[i].y -= sin(angle) * move; <br>
+        ghosts[j].x += cos(angle) * move; <br>
+        ghosts[j].y += sin(angle) * move; <br>
+      } <br>  
+    } <br>
+  } <br>
+} <br>
+
+// ---------------------------- <br>
+// MOVE GHOSTS <br>
+// ---------------------------- <br>
+function moveGhost(g) { <br>
+  if (g.type === "chase") { <br>
+    let dx = mouseX - g.x; <br>
+    let dy = mouseY - g.y; <br>
+    let d = sqrt(dx * dx + dy * dy); <br>
+    if (d > 0) { <br>
+      g.x += (dx / d) * g.speed; <br>
+      g.y += (dy / d) * g.speed; <br>
+    } <br>
+  } <br>
+
+  if (g.type === "vulnerable") { <br>
+    g.x += g.speedX; <br>
+    g.y += g.speedY; <br>
+    if (g.x < 40 || g.x > width - 40) g.speedX *= -1; <br>
+    if (g.y < 40 || g.y > height - 40) g.speedY *= -1; <br>
+  } <br>
+} <br>
+
+// ---------------------------- <br>
+// DRAW GHOST <br>
+// ----------------------------
+function drawGhost(x, y, size, colorIndex) { <br>
+  let c = ghostColors[colorIndex]; <br>
+  fill(c[0], c[1], c[2]); <br>
+  noStroke(); <br>
+
+  let ghostHeight = size * 1.2; <br>
+  let scallopRadius = size / 6; <br>
+
+  arc(x, y, size, size, PI, TWO_PI, CHORD); <br>
+  for (let i = -1; i <= 1; i++) { <br>
+    ellipse(x + i * scallopRadius * 2, y + ghostHeight / 2, scallopRadius * 2, scallopRadius * 2); <br>
   }
+  rect(x - size / 2, y, size, ghostHeight / 2); <br>
 
-  // Continuously prevent ghosts from overlapping
-  separateGhosts();
-}
+  let eyeSize = size / 5; <br>
+  let pupilSize = size / 10; <br>
+  let eyeOffsetX = size / 6; <br>
+  let eyeOffsetY = size / 6; <br>
 
-// ----------------------------
-// SEPARATE GHOSTS (to avoid stacking)
-function separateGhosts() {
-  for (let i = 0; i < ghosts.length; i++) {
-    for (let j = i + 1; j < ghosts.length; j++) {
-      let dx = ghosts[j].x - ghosts[i].x;
-      let dy = ghosts[j].y - ghosts[i].y;
-      let distance = sqrt(dx * dx + dy * dy);
-      if (distance < ghostSize) {
-        let angle = atan2(dy, dx);
-        let move = (ghostSize - distance) / 2 + 1;
-        ghosts[i].x -= cos(angle) * move;
-        ghosts[i].y -= sin(angle) * move;
-        ghosts[j].x += cos(angle) * move;
-        ghosts[j].y += sin(angle) * move;
-      }
-    }
-  }
-}
+  fill(255); <br>
+  ellipse(x - eyeOffsetX, y - eyeOffsetY, eyeSize, eyeSize); <br>
+  ellipse(x + eyeOffsetX, y - eyeOffsetY, eyeSize, eyeSize); <br>
 
-// ----------------------------
-// MOVE GHOSTS
-// ----------------------------
-function moveGhost(g) {
-  if (g.type === "chase") {
-    let dx = mouseX - g.x;
-    let dy = mouseY - g.y;
-    let d = sqrt(dx * dx + dy * dy);
-    if (d > 0) {
-      g.x += (dx / d) * g.speed;
-      g.y += (dy / d) * g.speed;
-    }
-  }
+  fill(0); <br>
+  let pupilRange = eyeSize / 4; <br>
+  let dx = mouseX - x; <br>
+  let dy = mouseY - y; <br>
+  let distPupil = sqrt(dx * dx + dy * dy);<br>
+  if (distPupil > 0) { <br>
+    dx = (dx / distPupil) * pupilRange; <br>
+    dy = (dy / distPupil) * pupilRange; <br>
+  } <br>
 
-  if (g.type === "vulnerable") {
-    g.x += g.speedX;
-    g.y += g.speedY;
-    if (g.x < 40 || g.x > width - 40) g.speedX *= -1;
-    if (g.y < 40 || g.y > height - 40) g.speedY *= -1;
-  }
-}
+  ellipse(x - eyeOffsetX + dx, y - eyeOffsetY + dy, pupilSize, pupilSize); <br>
+  ellipse(x + eyeOffsetX + dx, y - eyeOffsetY + dy, pupilSize, pupilSize); <br>
+} <br>
 
-// ----------------------------
-// DRAW GHOST
-// ----------------------------
-function drawGhost(x, y, size, colorIndex) {
-  let c = ghostColors[colorIndex];
-  fill(c[0], c[1], c[2]);
-  noStroke();
+// ---------------------------- <br>
+// PAC-MAN <br>
+// ---------------------------- <br>
+function drawPacman(x, y, size) { <br>
+  fill(255, 255, 0); <br>
+  let angle = radians(mouthAngle); <br>
+  arc(x, y, size, size, angle, TWO_PI - angle, PIE); <br>
+} <br>
 
-  let ghostHeight = size * 1.2;
-  let scallopRadius = size / 6;
+// ---------------------------- <br>
+// MOUTH ANIMATION <br>
+// ---------------------------- <br>
+function animateMouth() { <br>
+  mouthAngle += mouthSpeed; <br>
+  if (mouthAngle > 45 || mouthAngle < 10) mouthSpeed *= -1; <br>
+} <br>
 
-  arc(x, y, size, size, PI, TWO_PI, CHORD);
-  for (let i = -1; i <= 1; i++) {
-    ellipse(x + i * scallopRadius * 2, y + ghostHeight / 2, scallopRadius * 2, scallopRadius * 2);
-  }
-  rect(x - size / 2, y, size, ghostHeight / 2);
+// ---------------------------- <br>
+// MAZE BACKGROUND <br>
+// ---------------------------- <br>
+function drawBackground(wallColor) { <br>
+  background(0); <br>
+  stroke(wallColor); <br>
+  strokeWeight(4); <br>
+  noFill(); <br>
 
-  let eyeSize = size / 5;
-  let pupilSize = size / 10;
-  let eyeOffsetX = size / 6;
-  let eyeOffsetY = size / 6;
+  rect(0, 0, width, height); <br>
+  rect(60, 60, width - 120, 20); <br>
+  rect(60, height - 80, width - 120, 20); <br>
 
-  fill(255);
-  ellipse(x - eyeOffsetX, y - eyeOffsetY, eyeSize, eyeSize);
-  ellipse(x + eyeOffsetX, y - eyeOffsetY, eyeSize, eyeSize);
+  rect(140, 140, width - 280, 20); <br>
+  rect(140, height - 160, width - 280, 20); <br>
 
-  fill(0);
-  let pupilRange = eyeSize / 4;
-  let dx = mouseX - x;
-  let dy = mouseY - y;
-  let distPupil = sqrt(dx * dx + dy * dy);
-  if (distPupil > 0) {
-    dx = (dx / distPupil) * pupilRange;
-    dy = (dy / distPupil) * pupilRange;
-  }
+  rect(60, 80, 20, height - 160); <br>
+  rect(width - 80, 80, 20, height - 160); <br>
+ 
+  rect(120, 140, 20, height - 280); <br>
+  rect(width - 140, 140, 20, height - 280); <br>
 
-  ellipse(x - eyeOffsetX + dx, y - eyeOffsetY + dy, pupilSize, pupilSize);
-  ellipse(x + eyeOffsetX + dx, y - eyeOffsetY + dy, pupilSize, pupilSize);
-}
+  rect(width / 2 - 60, 220, 120, 20); <br>
+  rect(width / 2 - 60, height - 240, 120, 20); <br>
 
-// ----------------------------
-// PAC-MAN
-// ----------------------------
-function drawPacman(x, y, size) {
-  fill(255, 255, 0);
-  let angle = radians(mouthAngle);
-  arc(x, y, size, size, angle, TWO_PI - angle, PIE);
-}
-
-// ----------------------------
-// MOUTH ANIMATION
-// ----------------------------
-function animateMouth() {
-  mouthAngle += mouthSpeed;
-  if (mouthAngle > 45 || mouthAngle < 10) mouthSpeed *= -1;
-}
-
-// ----------------------------
-// MAZE BACKGROUND
-// ----------------------------
-function drawBackground(wallColor) {
-  background(0);
-  stroke(wallColor);
-  strokeWeight(4);
-  noFill();
-
-  rect(0, 0, width, height);
-  rect(60, 60, width - 120, 20);
-  rect(60, height - 80, width - 120, 20);
-
-  rect(140, 140, width - 280, 20);
-  rect(140, height - 160, width - 280, 20);
-
-  rect(60, 80, 20, height - 160);
-  rect(width - 80, 80, 20, height - 160);
-
-  rect(120, 140, 20, height - 280);
-  rect(width - 140, 140, 20, height - 280);
-
-  rect(width / 2 - 60, 220, 120, 20);
-  rect(width / 2 - 60, height - 240, 120, 20);
-
-  fill(255);
-  noStroke();
-  let cellSize = 20;
-  for (let i = 40; i < width; i += cellSize) {
-    for (let j = 40; j < height; j += cellSize) {
-      if (!((i > 60 && i < width - 60 && j > 60 && j < 80) ||
-            (i > 60 && i < width - 60 && j > height - 80 && j < height - 60) ||
-            (i > 140 && i < width - 140 && j > 140 && j < height - 140))) {
-        ellipse(i, j, 5, 5);
-      }
-    }
-  }
-}
+  fill(255); <br>
+  noStroke(); <br>
+  let cellSize = 20; <br>
+  for (let i = 40; i < width; i += cellSize) { <br>
+    for (let j = 40; j < height; j += cellSize) { <br>
+      if (!((i > 60 && i < width - 60 && j > 60 && j < 80) || <br>
+            (i > 60 && i < width - 60 && j > height - 80 && j < height - 60) || <br>
+            (i > 140 && i < width - 140 && j > 140 && j < height - 140))) { <br>
+        ellipse(i, j, 5, 5); <br>
+      } <br>
+    } <br>
+  } <br>
+} <br>
 </p>
 
 </body>
