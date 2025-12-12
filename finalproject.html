@@ -19,15 +19,16 @@
 
     .equal-img {
       width: 100%;
-      height: 400px; /* fixed height for all images */
-      object-fit: cover; /* fills the column nicely */
+      height: 400px;       /* controls image height */
+      object-fit: contain;  /* shows full image without cropping */
       cursor: pointer;
       border-radius: 0.25rem;
+      background-color: #000; /* fills empty space */
     }
 
     .gallery-section {
-      margin-top: 60px;  /* space above each gallery */
-      margin-bottom: 60px; /* space below each gallery */
+      margin-top: 60px;
+      margin-bottom: 60px;
     }
   </style>
 </head>
@@ -195,4 +196,3 @@
   </div> <!-- End container-fluid -->
 </body>
 </html>
-
