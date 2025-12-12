@@ -19,11 +19,11 @@
 
     .equal-img {
       width: 100%;
-      height: 400px;       /* controls image height */
-      object-fit: contain;  /* shows full image without cropping */
+      height: auto;          /* height adjusts naturally */
+      max-height: 400px;     /* optional max height */
+      object-fit: contain;    /* shows full image */
       cursor: pointer;
       border-radius: 0.25rem;
-      background-color: #000; /* fills empty space */
     }
 
     .gallery-section {
