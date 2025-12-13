@@ -14,10 +14,10 @@
       background-color: #2b2b2b;
     }
 
-    /* Keep same sizing behavior as image */
+    /* Fit game cleanly (600x600 canvas) */
     .game-frame-wrapper {
-      width: 120%;
-      max-width: 100%;
+      width: 100%;
+      max-width: 600px;
       aspect-ratio: 1 / 1;
       margin: 0 auto;
     }
@@ -54,10 +54,10 @@
 
   <h1 class="text-center my-4">Pacman Mouse Game</h1>
 
-  <!-- Game (replaced image) -->
+  <!-- Game embed -->
   <div class="container">
     <div class="row justify-content-center g-4">
-      <div class="col-md-6 d-flex justify-content-center">
+      <div class="col-12 d-flex justify-content-center">
         <div class="game-frame-wrapper">
           <iframe
             src="https://meatstick777.github.io/mousegame.html"
@@ -78,10 +78,10 @@
       </p>
     </div>
 
-    <!-- External Link -->
+    <!-- External link -->
     <div class="mt-4 text-center">
       <a href="https://meatstick777.github.io/mousegame.html" target="_blank" class="btn btn-outline-dark">
-        Click here to play my game full screen
+        Play full screen
       </a>
     </div>
 
@@ -90,3 +90,4 @@
 
 </body>
 </html>
+
