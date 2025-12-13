@@ -2,26 +2,35 @@
 <html>
 <head>
   <title>Pacman Mouse Game</title>
+
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <style>
     .custom-navbar {
-      background-color: #2b2b2b; /* dark gray shade */
+      background-color: #2b2b2b;
     }
 
-    /* 1.5x bigger, centered image */
-    .net-art-img {
-      width: 120%;       /* 1.5× bigger than before */
-      max-width: 100%;   /* prevents overflowing */
-      height: auto;
-      display: block;
+    /* Keep same sizing behavior as image */
+    .game-frame-wrapper {
+      width: 120%;
+      max-width: 100%;
+      aspect-ratio: 1 / 1;
       margin: 0 auto;
+    }
+
+    .game-frame {
+      width: 100%;
+      height: 100%;
+      border: 4px solid #000;
+      border-radius: 12px;
     }
   </style>
 </head>
+
 <body>
 <div class="container-fluid">
 
@@ -38,425 +47,46 @@
         <li class="nav-item"><a class="nav-link" href="self_portrait.html">Self-Portrait</a></li>
         <li class="nav-item"><a class="nav-link" href="photoshop.html">DIY-Photoshop</a></li>
         <li class="nav-item"><a class="nav-link" href="game.html">Mouse-Game</a></li>
-		<li class="nav-item"><a class="nav-link" href="finalproject.html">Final-Project</a></li>
+        <li class="nav-item"><a class="nav-link" href="finalproject.html">Final-Project</a></li>
       </ul>
     </div>
   </nav>
 
   <h1 class="text-center my-4">Pacman Mouse Game</h1>
 
-  <!-- Image Gallery -->
+  <!-- Game (replaced image) -->
   <div class="container">
     <div class="row justify-content-center g-4">
       <div class="col-md-6 d-flex justify-content-center">
-        <img src="game.jpg" class="net-art-img rounded" alt="game">
+        <div class="game-frame-wrapper">
+          <iframe
+            src="https://meatstick777.github.io/mousegame.html"
+            class="game-frame"
+            loading="lazy"
+          ></iframe>
+        </div>
       </div>
     </div>
 
-    <!-- Centered Text -->
+    <!-- Description -->
     <div class="mt-4">
       <p class="text-center">
-       my game is inspired by Pac-Man and how the ghosts chase him around while he also eats them too. The game starts slowly but picks up pace once more ghosts are introduced which either help you in reaching the goal to win or make you lose points. The rules are to eat blue ghosts to gain points. Then you must avoid the red ghosts because they deduct points and finally you must reach 100 points to win.
+        my game is inspired by Pac-Man and how the ghosts chase him around while he also eats them too.
+        The game starts slowly but picks up pace once more ghosts are introduced which either help you
+        in reaching the goal to win or make you lose points. The rules are to eat blue ghosts to gain
+        points, avoid red ghosts because they deduct points, and reach 100 points to win.
       </p>
     </div>
 
-    <!-- Adventure Link -->
+    <!-- External Link -->
     <div class="mt-4 text-center">
       <a href="https://meatstick777.github.io/mousegame.html" target="_blank" class="btn btn-outline-dark">
-        Click here to play my game
-		<br>
+        Click here to play my game full screen
       </a>
     </div>
 
   </div>
-
 </div>
-
-<p class="text-center">
- 
-Code below: <br>
-<br>
-// ---------------------------- <br>
-// Global Variables <br>
-// ---------------------------- <br>
-var ghostSize = 40; <br>
-var score = 0; <br>
-var level = 1; <br>
-let gameState = "intro"; // "intro", "playing", "win" <br>
-
-// Mouth animation <br>
-let mouthAngle = 45; <br>
-let mouthSpeed = 2; <br>
-
-// Ghost Colors (same in all levels) <br>
-let ghostColors = [
-  [255, 0, 0],       // Red ghost (chase) <br>
-  [0, 0, 255],       // Blue ghost (vulnerable) <br>
-  [255, 184, 255],   // Pink ghost (vulnerable) <br>
-  [255, 184, 82]     // Orange ghost (vulnerable) <br>
-]; <br>
-
-// ------------ GHOST SYSTEM -------------- <br>
-let ghosts = []; // Will be initialized per level <br>
-
-// ---------------------------- <br>
-// Setup <br>
-// ---------------------------- <br>
-function setup() { <br>
-  createCanvas(600, 600); <br>
-  textAlign(CENTER); <br>
-  textSize(20); <br>
-  noCursor(); <br>
-} <br>
-
-// ---------------------------- <br>
-// Draw Loop <br>
-// ---------------------------- <br>
-function draw() { <br>
-  if (gameState === "intro") { <br>
-    drawIntroScreen(); <br>
-  } else if (gameState === "playing") { <br>
-    // Draw background per level with unique wall colors <br>
-    if (level === 1) drawBackground(color(0, 0, 255));      // blue lines <br>
-    if (level === 2) drawBackground(color(255, 0, 0));      // red lines <br> 
-    if (level === 3) drawBackground(color(0, 255, 255));    // cyan lines <br>
-    if (level === 4) drawBackground(color(255, 255, 0));    // yellow lines <br>
-
-    // draw levels <br>
-    if (level === 1) levelOne(); <br>
-    else if (level === 2) levelTwo(); <br>
-    else if (level === 3) levelThree(); <br>
-    else if (level === 4) levelFour(); <br>
-
-    fill(255); <br>
-    text("Score: " + score, width / 2, 40); <br>
-
-    drawPacman(mouseX, mouseY, 40); <br>
-    animateMouth(); <br> 
-  } else if (gameState === "win") { <br>
-    drawWinScreen(); <br>
-  } <br>
-} <br>
- 
-// ---------------------------- <br>
-// INTRO SCREEN <br>
-// ---------------------------- <br>
-function drawIntroScreen() { <br>
-  background(0); <br>
-  fill(255, 255, 0); <br> 
-  textSize(48); <br>
-  text("PAC-MAN MOUSE GAME", width / 2, height / 2 - 100); <br>
-
-  textSize(20); <br>
-  fill(255); <br>
-  text("Rules:", width / 2, height / 2 - 40); <br>
-  text("1. Eat the blue ghosts to gain points.", width / 2, height / 2 - 10); <br>
-  text("2. Avoid red ghosts—they deduct points.", width / 2, height / 2 + 20); <br>
-  text("3. Reach 100 points to win.", width / 2, height / 2 + 50); <br>
-  text("Press ENTER or click to start!", width / 2, height / 2 + 100); <br>
-} <br>
-
-// ---------------------------- <br>
-// WIN SCREEN <br>
-// ---------------------------- <br>
-function drawWinScreen() { <br>
-  background(0); <br>
-  fill(255, 255, 0); <br>
-  textSize(48); <br>
-  text("YOU WIN!", width / 2, height / 2); <br>
-  textSize(24); <br>
-  fill(255); <br>
-  text("Refresh the page to play again.", width / 2, height / 2 + 50); <br>
-} <br>
-
-// ---------------------------- <br>
-// KEY PRESS <br> 
-// ---------------------------- <br>
-function keyPressed() { <br>
-  if (gameState === "intro" && key === 'Enter') { <br>
-    startGame(); <br>
-  } <br>
-} <br>
-
-// ---------------------------- <br>
-// MOUSE CLICK <br>
-// ---------------------------- <br>
-function mousePressed() { <br>
-  if (gameState === "intro") { <br>
-    startGame(); <br>
-  } <br> 
-} <br>
-
-// ---------------------------- <br>
-// START GAME FUNCTION <br>
-// ---------------------------- <br>
-function startGame() { <br>
-  gameState = "playing"; <br>
-  level = 1; <br>
-  score = 0; <br>
-  setupLevelOne(); <br>
-} <br>
-
-// ---------------------------- <br>
-// LEVEL SETUPS <br>
-// ----------------------------<br>
-function setupLevelOne() { <br>
-  ghosts = [ <br>
-    { x: 150, y: 150, speed: 1.3, colorIndex: 1, type: "vulnerable", speedX: 1.3, speedY: 1.3 }, <br>
-    { x: 450, y: 450, speed: 1.0, colorIndex: 1, type: "vulnerable", speedX: 1.0, speedY: 1.0 } <br>
-  ]; <br>
-} <br>
-
-function setupLevelTwo() { <br>
-  ghosts = [ <br>
-    { x: 150, y: 150, speed: 1.8, colorIndex: 1, type: "vulnerable", speedX: 1.8, speedY: 1.8 }, <br>
-    { x: 450, y: 450, speed: 2.5, colorIndex: 0, type: "chase" } <br> 
-  ]; <br>
-} <br>
-
-function setupLevelThree() { <br>
-  ghosts = [ <br>
-    { x: 100, y: 100, speed: 3.0, colorIndex: 0, type: "chase" }, <br>
-    { x: 500, y: 100, speed: 1.8, colorIndex: 1, type: "vulnerable", speedX: 1.8, speedY: 1.8 }, <br>
-    { x: 100, y: 500, speed: 1.8, colorIndex: 1, type: "vulnerable", speedX: 1.8, speedY: 1.8 }, <br>
-    { x: 500, y: 500, speed: 1.8, colorIndex: 1, type: "vulnerable", speedX: 1.8, speedY: 1.8 } <br>
-  ]; <br>
-} <br>
-
-function setupLevelFour() { <br>
-  ghosts = [ <br>
-    { x: 100, y: 100, speed: 3.0, colorIndex: 0, type: "chase" }, <br>
-    { x: 500, y: 100, speed: 3.0, colorIndex: 0, type: "chase" }, <br>
-    { x: 100, y: 500, speed: 3.0, colorIndex: 0, type: "chase" }, <br>
-    { x: 500, y: 500, speed: 2.5, colorIndex: 1, type: "vulnerable", speedX: 2.5, speedY: 2.5 } <br>
-  ]; <br>
-} <br>
-
-// ---------------------------- <br>
-// LEVEL FUNCTIONS <br>
-// ---------------------------- <br>
-function levelOne() { <br>
-  fill(255); <br>
-  text("LEVEL 1", width / 2, height - 20); <br>
-  textSize(16); <br>
-  fill(0, 255, 0); <br>
-  text("All ghosts are harmless, so eat them all for now...", width / 2, height - 50); <br>
-
-  handleGhosts(); <br>
-
-  if (score >= 25) { <br>
-    level = 2; <br>
-    setupLevelTwo(); <br>
-  } <br>
-} <br>
- 
-function levelTwo() { <br>
-  fill(255); <br>
-  text("LEVEL 2", width / 2, height - 20); <br>
-  textSize(16); <br>
-  fill(255, 0, 0); <br>
-  text("Red ghosts now chase you!", width / 2, height - 50); <br>
-
-  handleGhosts(); <br>
-
-  if (score >= 50) { <br>
-    level = 3;
-    setupLevelThree(); <br>
-  } <br>
-} <br>
- 
-function levelThree() { <br>
-  fill(255); <br>
-  text("LEVEL 3", width / 2, height - 20); <br>
-  textSize(16); <br>
-  fill(255, 0, 0); <br>
-  text("Red ghost is faster now! Eat blue ghosts carefully.", width / 2, height - 50); <br>
-
-  handleGhosts(); <br>
-
-  if (score >= 75) { <br>
-    level = 4; <br>
-    setupLevelFour(); <br>
-  } <br>
-} <br>
-
-function levelFour() { <br>
-  fill(255); <br>
-  text("LEVEL 4", width / 2, height - 20); <br>
-  textSize(16); <br>
-  fill(255, 0, 0); <br>
-  text("Three red ghosts! Be careful and catch the blue one!", width / 2, height - 50); <br>
-
-  handleGhosts(); <br>
-
-  if (score >= 100) { <br>
-    gameState = "win"; <br>
-  } <br>
-} <br>
-
-// ---------------------------- <br>
-// HANDLE GHOSTS & COLLISIONS <br>
-// ---------------------------- <br>
-function handleGhosts() { <br>
-  for (let g of ghosts) { <br>
-    moveGhost(g); <br>
-    drawGhost(g.x, g.y, ghostSize, g.colorIndex); <br>
-
-    let d = dist(g.x, g.y, mouseX, mouseY); <br>
-    if (g.type === "vulnerable" && d < ghostSize / 2) { <br>
-      score++; <br>
-      g.x = random(60, width - 60);<br>
-      g.y = random(60, height - 60); <br>
-    }
-    if (g.type === "chase" && d < ghostSize / 2) { <br>
-      score = max(0, score - 1); <br>
-      g.x = random(60, width - 60); <br>
-      g.y = random(60, height - 60); <br>
-    } <br>
-  } <br>
-
-  // Continuously prevent ghosts from overlapping <br>
-  separateGhosts(); <br>
-} <br>
-
-// ---------------------------- <br>
-// SEPARATE GHOSTS (to avoid stacking) <br>
-function separateGhosts() { <br>
-  for (let i = 0; i < ghosts.length; i++) { <br>
-    for (let j = i + 1; j < ghosts.length; j++) { <br>
-      let dx = ghosts[j].x - ghosts[i].x; <br>
-      let dy = ghosts[j].y - ghosts[i].y; <br>
-      let distance = sqrt(dx * dx + dy * dy); <br>
-      if (distance < ghostSize) { <br>
-        let angle = atan2(dy, dx); <br>
-        let move = (ghostSize - distance) / 2 + 1; <br>
-        ghosts[i].x -= cos(angle) * move; <br>
-        ghosts[i].y -= sin(angle) * move; <br>
-        ghosts[j].x += cos(angle) * move; <br>
-        ghosts[j].y += sin(angle) * move; <br>
-      } <br>  
-    } <br>
-  } <br>
-} <br>
-
-// ---------------------------- <br>
-// MOVE GHOSTS <br>
-// ---------------------------- <br>
-function moveGhost(g) { <br>
-  if (g.type === "chase") { <br>
-    let dx = mouseX - g.x; <br>
-    let dy = mouseY - g.y; <br>
-    let d = sqrt(dx * dx + dy * dy); <br>
-    if (d > 0) { <br>
-      g.x += (dx / d) * g.speed; <br>
-      g.y += (dy / d) * g.speed; <br>
-    } <br>
-  } <br>
-
-  if (g.type === "vulnerable") { <br>
-    g.x += g.speedX; <br>
-    g.y += g.speedY; <br>
-    if (g.x < 40 || g.x > width - 40) g.speedX *= -1; <br>
-    if (g.y < 40 || g.y > height - 40) g.speedY *= -1; <br>
-  } <br>
-} <br>
-
-// ---------------------------- <br>
-// DRAW GHOST <br>
-// ----------------------------
-function drawGhost(x, y, size, colorIndex) { <br>
-  let c = ghostColors[colorIndex]; <br>
-  fill(c[0], c[1], c[2]); <br>
-  noStroke(); <br>
-
-  let ghostHeight = size * 1.2; <br>
-  let scallopRadius = size / 6; <br>
-
-  arc(x, y, size, size, PI, TWO_PI, CHORD); <br>
-  for (let i = -1; i <= 1; i++) { <br>
-    ellipse(x + i * scallopRadius * 2, y + ghostHeight / 2, scallopRadius * 2, scallopRadius * 2); <br>
-  }
-  rect(x - size / 2, y, size, ghostHeight / 2); <br>
-
-  let eyeSize = size / 5; <br>
-  let pupilSize = size / 10; <br>
-  let eyeOffsetX = size / 6; <br>
-  let eyeOffsetY = size / 6; <br>
-
-  fill(255); <br>
-  ellipse(x - eyeOffsetX, y - eyeOffsetY, eyeSize, eyeSize); <br>
-  ellipse(x + eyeOffsetX, y - eyeOffsetY, eyeSize, eyeSize); <br>
-
-  fill(0); <br>
-  let pupilRange = eyeSize / 4; <br>
-  let dx = mouseX - x; <br>
-  let dy = mouseY - y; <br>
-  let distPupil = sqrt(dx * dx + dy * dy);<br>
-  if (distPupil > 0) { <br>
-    dx = (dx / distPupil) * pupilRange; <br>
-    dy = (dy / distPupil) * pupilRange; <br>
-  } <br>
-
-  ellipse(x - eyeOffsetX + dx, y - eyeOffsetY + dy, pupilSize, pupilSize); <br>
-  ellipse(x + eyeOffsetX + dx, y - eyeOffsetY + dy, pupilSize, pupilSize); <br>
-} <br>
-
-// ---------------------------- <br>
-// PAC-MAN <br>
-// ---------------------------- <br>
-function drawPacman(x, y, size) { <br>
-  fill(255, 255, 0); <br>
-  let angle = radians(mouthAngle); <br>
-  arc(x, y, size, size, angle, TWO_PI - angle, PIE); <br>
-} <br>
-
-// ---------------------------- <br>
-// MOUTH ANIMATION <br>
-// ---------------------------- <br>
-function animateMouth() { <br>
-  mouthAngle += mouthSpeed; <br>
-  if (mouthAngle > 45 || mouthAngle < 10) mouthSpeed *= -1; <br>
-} <br>
-
-// ---------------------------- <br>
-// MAZE BACKGROUND <br>
-// ---------------------------- <br>
-function drawBackground(wallColor) { <br>
-  background(0); <br>
-  stroke(wallColor); <br>
-  strokeWeight(4); <br>
-  noFill(); <br>
-
-  rect(0, 0, width, height); <br>
-  rect(60, 60, width - 120, 20); <br>
-  rect(60, height - 80, width - 120, 20); <br>
-
-  rect(140, 140, width - 280, 20); <br>
-  rect(140, height - 160, width - 280, 20); <br>
-
-  rect(60, 80, 20, height - 160); <br>
-  rect(width - 80, 80, 20, height - 160); <br>
- 
-  rect(120, 140, 20, height - 280); <br>
-  rect(width - 140, 140, 20, height - 280); <br>
-
-  rect(width / 2 - 60, 220, 120, 20); <br>
-  rect(width / 2 - 60, height - 240, 120, 20); <br>
-
-  fill(255); <br>
-  noStroke(); <br>
-  let cellSize = 20; <br>
-  for (let i = 40; i < width; i += cellSize) { <br>
-    for (let j = 40; j < height; j += cellSize) { <br>
-      if (!((i > 60 && i < width - 60 && j > 60 && j < 80) || <br>
-            (i > 60 && i < width - 60 && j > height - 80 && j < height - 60) || <br>
-            (i > 140 && i < width - 140 && j > 140 && j < height - 140))) { <br>
-        ellipse(i, j, 5, 5); <br>
-      } <br>
-    } <br>
-  } <br>
-} <br>
-</p>
 
 </body>
 </html>
