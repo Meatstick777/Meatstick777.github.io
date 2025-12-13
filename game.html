@@ -68,7 +68,30 @@
 <div class="container my-5">
   <h2 class="text-center mb-3">p5.js Game Source Code</h2>
   <p class="text-center">
-    // ----------------------------
+    Copy and paste this code to experiment or modify the game.
+  </p>
+
+  <pre style="
+    background:#f5f5f5;
+    color:#000;
+    padding:20px;
+    border-radius:8px;
+    max-height:600px;
+    overflow:auto;
+    font-size:14px;
+    line-height:1.4;
+  "><code>
+
+// ----------------------------
+// Global Variables
+// ----------------------------
+var ghostSize = 40;
+var score = 0;
+var level = 1;
+let gameState = "intro";
+
+// (PASTE FULL p5.js GAME CODE HERE)
+// ----------------------------
 // Global Variables
 // ----------------------------
 var ghostSize = 40;
@@ -108,13 +131,11 @@ function draw() {
   if (gameState === "intro") {
     drawIntroScreen();
   } else if (gameState === "playing") {
-    // Draw background per level with unique wall colors
-    if (level === 1) drawBackground(color(0, 0, 255));      // blue lines
-    if (level === 2) drawBackground(color(255, 0, 0));      // red lines
-    if (level === 3) drawBackground(color(0, 255, 255));    // cyan lines
-    if (level === 4) drawBackground(color(255, 255, 0));    // yellow lines
+    if (level === 1) drawBackground(color(0, 0, 255));
+    if (level === 2) drawBackground(color(255, 0, 0));
+    if (level === 3) drawBackground(color(0, 255, 255));
+    if (level === 4) drawBackground(color(255, 255, 0));
 
-    // draw levels
     if (level === 1) levelOne();
     else if (level === 2) levelTwo();
     else if (level === 3) levelThree();
@@ -131,7 +152,7 @@ function draw() {
 }
 
 // ----------------------------
-// INTRO SCREEN
+// Intro Screen
 // ----------------------------
 function drawIntroScreen() {
   background(0);
@@ -149,7 +170,7 @@ function drawIntroScreen() {
 }
 
 // ----------------------------
-// WIN SCREEN
+// Win Screen
 // ----------------------------
 function drawWinScreen() {
   background(0);
@@ -162,7 +183,7 @@ function drawWinScreen() {
 }
 
 // ----------------------------
-// KEY PRESS
+// Key Press
 // ----------------------------
 function keyPressed() {
   if (gameState === "intro" && key === 'Enter') {
@@ -171,7 +192,7 @@ function keyPressed() {
 }
 
 // ----------------------------
-// MOUSE CLICK
+// Mouse Click
 // ----------------------------
 function mousePressed() {
   if (gameState === "intro") {
@@ -180,7 +201,7 @@ function mousePressed() {
 }
 
 // ----------------------------
-// START GAME FUNCTION
+// Start Game Function
 // ----------------------------
 function startGame() {
   gameState = "playing";
@@ -190,7 +211,7 @@ function startGame() {
 }
 
 // ----------------------------
-// LEVEL SETUPS
+// Level Setups
 // ----------------------------
 function setupLevelOne() {
   ghosts = [
@@ -225,7 +246,7 @@ function setupLevelFour() {
 }
 
 // ----------------------------
-// LEVEL FUNCTIONS
+// Level Functions
 // ----------------------------
 function levelOne() {
   fill(255);
@@ -287,7 +308,7 @@ function levelFour() {
 }
 
 // ----------------------------
-// HANDLE GHOSTS & COLLISIONS
+// Handle Ghosts & Collisions
 // ----------------------------
 function handleGhosts() {
   for (let g of ghosts) {
@@ -307,12 +328,12 @@ function handleGhosts() {
     }
   }
 
-  // Continuously prevent ghosts from overlapping
   separateGhosts();
 }
 
 // ----------------------------
-// SEPARATE GHOSTS (to avoid stacking)
+// Separate Ghosts
+// ----------------------------
 function separateGhosts() {
   for (let i = 0; i < ghosts.length; i++) {
     for (let j = i + 1; j < ghosts.length; j++) {
@@ -332,7 +353,7 @@ function separateGhosts() {
 }
 
 // ----------------------------
-// MOVE GHOSTS
+// Move Ghosts
 // ----------------------------
 function moveGhost(g) {
   if (g.type === "chase") {
@@ -354,7 +375,7 @@ function moveGhost(g) {
 }
 
 // ----------------------------
-// DRAW GHOST
+// Draw Ghost
 // ----------------------------
 function drawGhost(x, y, size, colorIndex) {
   let c = ghostColors[colorIndex];
@@ -394,7 +415,7 @@ function drawGhost(x, y, size, colorIndex) {
 }
 
 // ----------------------------
-// PAC-MAN
+// Pac-Man
 // ----------------------------
 function drawPacman(x, y, size) {
   fill(255, 255, 0);
@@ -403,7 +424,7 @@ function drawPacman(x, y, size) {
 }
 
 // ----------------------------
-// MOUTH ANIMATION
+// Mouth Animation
 // ----------------------------
 function animateMouth() {
   mouthAngle += mouthSpeed;
@@ -411,7 +432,7 @@ function animateMouth() {
 }
 
 // ----------------------------
-// MAZE BACKGROUND
+// Maze Background
 // ----------------------------
 function drawBackground(wallColor) {
   background(0);
@@ -422,16 +443,12 @@ function drawBackground(wallColor) {
   rect(0, 0, width, height);
   rect(60, 60, width - 120, 20);
   rect(60, height - 80, width - 120, 20);
-
   rect(140, 140, width - 280, 20);
   rect(140, height - 160, width - 280, 20);
-
   rect(60, 80, 20, height - 160);
   rect(width - 80, 80, 20, height - 160);
-
   rect(120, 140, 20, height - 280);
   rect(width - 140, 140, 20, height - 280);
-
   rect(width / 2 - 60, 220, 120, 20);
   rect(width / 2 - 60, height - 240, 120, 20);
 
@@ -448,28 +465,8 @@ function drawBackground(wallColor) {
     }
   }
 }
-  </p>
 
-  <pre style="
-    background:#f5f5f5;
-    color:#000;
-    padding:20px;
-    border-radius:8px;
-    max-height:600px;
-    overflow:auto;
-    font-size:14px;
-    line-height:1.4;
-  "><code>
 
-// ----------------------------
-// Global Variables
-// ----------------------------
-var ghostSize = 40;
-var score = 0;
-var level = 1;
-let gameState = "intro";
-
-// (PASTE FULL p5.js GAME CODE HERE)
 
   </code></pre>
 </div>
