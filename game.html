@@ -131,11 +131,13 @@ function draw() {
   if (gameState === "intro") {
     drawIntroScreen();
   } else if (gameState === "playing") {
-    if (level === 1) drawBackground(color(0, 0, 255));
-    if (level === 2) drawBackground(color(255, 0, 0));
-    if (level === 3) drawBackground(color(0, 255, 255));
-    if (level === 4) drawBackground(color(255, 255, 0));
+    // Draw background per level with unique wall colors
+    if (level === 1) drawBackground(color(0, 0, 255));      // blue lines
+    if (level === 2) drawBackground(color(255, 0, 0));      // red lines
+    if (level === 3) drawBackground(color(0, 255, 255));    // cyan lines
+    if (level === 4) drawBackground(color(255, 255, 0));    // yellow lines
 
+    // draw levels
     if (level === 1) levelOne();
     else if (level === 2) levelTwo();
     else if (level === 3) levelThree();
@@ -152,7 +154,7 @@ function draw() {
 }
 
 // ----------------------------
-// Intro Screen
+// INTRO SCREEN
 // ----------------------------
 function drawIntroScreen() {
   background(0);
@@ -170,7 +172,7 @@ function drawIntroScreen() {
 }
 
 // ----------------------------
-// Win Screen
+// WIN SCREEN
 // ----------------------------
 function drawWinScreen() {
   background(0);
@@ -183,7 +185,7 @@ function drawWinScreen() {
 }
 
 // ----------------------------
-// Key Press
+// KEY PRESS
 // ----------------------------
 function keyPressed() {
   if (gameState === "intro" && key === 'Enter') {
@@ -192,7 +194,7 @@ function keyPressed() {
 }
 
 // ----------------------------
-// Mouse Click
+// MOUSE CLICK
 // ----------------------------
 function mousePressed() {
   if (gameState === "intro") {
@@ -201,7 +203,7 @@ function mousePressed() {
 }
 
 // ----------------------------
-// Start Game Function
+// START GAME FUNCTION
 // ----------------------------
 function startGame() {
   gameState = "playing";
@@ -211,7 +213,7 @@ function startGame() {
 }
 
 // ----------------------------
-// Level Setups
+// LEVEL SETUPS
 // ----------------------------
 function setupLevelOne() {
   ghosts = [
@@ -246,7 +248,7 @@ function setupLevelFour() {
 }
 
 // ----------------------------
-// Level Functions
+// LEVEL FUNCTIONS
 // ----------------------------
 function levelOne() {
   fill(255);
@@ -308,7 +310,7 @@ function levelFour() {
 }
 
 // ----------------------------
-// Handle Ghosts & Collisions
+// HANDLE GHOSTS & COLLISIONS
 // ----------------------------
 function handleGhosts() {
   for (let g of ghosts) {
@@ -328,12 +330,12 @@ function handleGhosts() {
     }
   }
 
+  // Continuously prevent ghosts from overlapping
   separateGhosts();
 }
 
 // ----------------------------
-// Separate Ghosts
-// ----------------------------
+// SEPARATE GHOSTS (to avoid stacking)
 function separateGhosts() {
   for (let i = 0; i < ghosts.length; i++) {
     for (let j = i + 1; j < ghosts.length; j++) {
@@ -353,7 +355,7 @@ function separateGhosts() {
 }
 
 // ----------------------------
-// Move Ghosts
+// MOVE GHOSTS
 // ----------------------------
 function moveGhost(g) {
   if (g.type === "chase") {
@@ -375,7 +377,7 @@ function moveGhost(g) {
 }
 
 // ----------------------------
-// Draw Ghost
+// DRAW GHOST
 // ----------------------------
 function drawGhost(x, y, size, colorIndex) {
   let c = ghostColors[colorIndex];
@@ -415,7 +417,7 @@ function drawGhost(x, y, size, colorIndex) {
 }
 
 // ----------------------------
-// Pac-Man
+// PAC-MAN
 // ----------------------------
 function drawPacman(x, y, size) {
   fill(255, 255, 0);
@@ -424,7 +426,7 @@ function drawPacman(x, y, size) {
 }
 
 // ----------------------------
-// Mouth Animation
+// MOUTH ANIMATION
 // ----------------------------
 function animateMouth() {
   mouthAngle += mouthSpeed;
@@ -432,7 +434,7 @@ function animateMouth() {
 }
 
 // ----------------------------
-// Maze Background
+// MAZE BACKGROUND
 // ----------------------------
 function drawBackground(wallColor) {
   background(0);
@@ -443,12 +445,16 @@ function drawBackground(wallColor) {
   rect(0, 0, width, height);
   rect(60, 60, width - 120, 20);
   rect(60, height - 80, width - 120, 20);
+
   rect(140, 140, width - 280, 20);
   rect(140, height - 160, width - 280, 20);
+
   rect(60, 80, 20, height - 160);
   rect(width - 80, 80, 20, height - 160);
+
   rect(120, 140, 20, height - 280);
   rect(width - 140, 140, 20, height - 280);
+
   rect(width / 2 - 60, 220, 120, 20);
   rect(width / 2 - 60, height - 240, 120, 20);
 
@@ -465,7 +471,6 @@ function drawBackground(wallColor) {
     }
   }
 }
-
 
 
   </code></pre>
