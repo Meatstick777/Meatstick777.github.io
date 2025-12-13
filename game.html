@@ -15,6 +15,7 @@
 
     .game-frame {
       width: 100%;
+      max-width: 900px;
       height: 600px;
       border: none;
     }
@@ -45,10 +46,10 @@
   <h1 class="text-center my-4">Pacman Mouse Game</h1>
 
   <!-- Game -->
-  <div class="container">
+  <div class="container text-center">
     <iframe
       src="https://meatstick777.github.io/mousegame.html"
-      class="game-frame"
+      class="game-frame mx-auto d-block"
       allowfullscreen>
     </iframe>
 
@@ -67,7 +68,7 @@
 <div class="container my-5">
   <h2 class="text-center mb-3">p5.js Game Source Code</h2>
   <p class="text-center">
-    Copy and paste this code to modify or build your own version of the game.
+    Copy and paste this code to experiment or modify the game.
   </p>
 
   <pre style="
@@ -89,50 +90,7 @@ var score = 0;
 var level = 1;
 let gameState = "intro";
 
-// Mouth animation
-let mouthAngle = 45;
-let mouthSpeed = 2;
-
-// Ghost colors
-let ghostColors = [
-  [255, 0, 0],
-  [0, 0, 255],
-  [255, 184, 255],
-  [255, 184, 82]
-];
-
-// ------------ GHOST SYSTEM --------------
-let ghosts = [];
-
-// ----------------------------
-// Setup
-// ----------------------------
-function setup() {
-  createCanvas(600, 600);
-  textAlign(CENTER);
-  textSize(20);
-  noCursor();
-}
-
-// ----------------------------
-// Draw Loop
-// ----------------------------
-function draw() {
-  if (gameState === "intro") {
-    drawIntroScreen();
-  } else if (gameState === "playing") {
-    drawBackground(color(0, 0, 255));
-
-    handleGhosts();
-    fill(255);
-    text("Score: " + score, width / 2, 40);
-
-    drawPacman(mouseX, mouseY, 40);
-    animateMouth();
-  }
-}
-
-// (FULL GAME CODE CONTINUES — paste everything here)
+// (PASTE FULL p5.js GAME CODE HERE)
 
   </code></pre>
 </div>
